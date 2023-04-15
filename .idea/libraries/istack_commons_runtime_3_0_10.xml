@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="istack-commons-runtime-3.0.10">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Downloads/istack-commons-runtime-3.0.10.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/javax.activation-api-1.2.0.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/jaxb-api-2.3.1 (1).jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/jaxb-runtime-2.3.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/maven-compiler-plugin-3.10.0.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/maven-javadoc-plugin-3.1.0.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/maven-assembly-plugin-3.1.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
