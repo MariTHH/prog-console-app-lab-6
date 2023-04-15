@@ -9,7 +9,7 @@ import java.io.*;
 import java.util.*;
 
 /**
- * execute_script file_name : read and execute the script from the specified file.
+ * execute_script file_name : read and execute the script from the specified file
  * The script contains commands in the same form as they are entered by the user in interactive mode.
  */
 public class ExecuteScript extends Command {
