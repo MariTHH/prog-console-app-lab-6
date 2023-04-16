@@ -1,8 +1,7 @@
-package collection;
+package server;
 
 import javax.xml.bind.*;
 import java.io.*;
-import java.util.Scanner;
 
 
 public final class Parser {
@@ -52,20 +51,4 @@ public final class Parser {
             throw new RuntimeException();
         }
     }
-}
-
-
-class C {
-
-    public static void main(String[] args) {
-
-        try {
-            BufferedOutputStream s = new BufferedOutputStream(new FileOutputStream("textfile.txt"));
-            s.write("Hello, World!".getBytes());
-            s.close();
-        } catch (IOException e) {
-            e.getMessage();
-        }
-    }
-
 }

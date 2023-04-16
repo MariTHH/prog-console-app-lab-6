@@ -1,7 +1,7 @@
-package commands.available.commands;
+package client.commands.available.commands;
 
-import collection.PersonCollection;
-import commands.Command;
+import client.commands.Command;
+import server.PersonCollection;
 
 /**
  * Command show. Output to the standard output stream all elements of the collection in string representation

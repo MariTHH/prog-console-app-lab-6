@@ -1,4 +1,4 @@
-package commands;
+package client.commands;
 
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;

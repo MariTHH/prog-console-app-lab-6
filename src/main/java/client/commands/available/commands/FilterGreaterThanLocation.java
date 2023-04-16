@@ -1,7 +1,7 @@
-package commands.available.commands;
+package client.commands.available.commands;
 
-import collection.PersonCollection;
-import commands.Command;
+import client.commands.Command;
+import server.PersonCollection;
 
 /**
  * filter_greater_than_location location :
@@ -10,7 +10,7 @@ import commands.Command;
 public class FilterGreaterThanLocation extends Command {
     private final PersonCollection personCollection;
 
-    public FilterGreaterThanLocation (PersonCollection personCollection) {
+    public FilterGreaterThanLocation(PersonCollection personCollection) {
         this.personCollection = personCollection;
     }
 

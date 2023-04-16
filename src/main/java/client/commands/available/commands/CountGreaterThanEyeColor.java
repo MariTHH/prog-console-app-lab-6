@@ -1,8 +1,8 @@
-package commands.available.commands;
+package client.commands.available.commands;
 
-import collection.PersonCollection;
-import commands.Command;
+import client.commands.Command;
 import data.Color;
+import server.PersonCollection;
 
 /**
  * count_greater_than_eye_color eyeColor

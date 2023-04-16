@@ -1,8 +1,8 @@
-package commands.available.commands;
+package client.commands.available.commands;
 
 import client.ClientManager;
-import collection.PersonCollection;
-import commands.*;
+import client.commands.Command;
+import server.PersonCollection;
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;

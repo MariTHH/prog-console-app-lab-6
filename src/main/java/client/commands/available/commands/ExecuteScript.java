@@ -1,12 +1,16 @@
-package commands.available.commands;
+package client.commands.available.commands;
 
-import collection.PersonCollection;
-import commands.Command;
-import commands.CommandManager;
+import client.commands.Command;
+import client.commands.CommandManager;
+import server.PersonCollection;
 
 import javax.xml.bind.JAXBException;
-import java.io.*;
-import java.util.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Scanner;
 
 /**
  * execute_script file_name : read and execute the script from the specified file

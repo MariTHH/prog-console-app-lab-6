@@ -1,7 +1,7 @@
-package commands;
+package client.commands;
 
-import collection.PersonCollection;
-import commands.available.commands.*;
+import client.commands.available.commands.*;
+import server.PersonCollection;
 
 import javax.xml.bind.JAXBException;
 import java.io.IOException;

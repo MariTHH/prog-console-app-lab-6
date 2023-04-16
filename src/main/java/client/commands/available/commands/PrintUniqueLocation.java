@@ -1,7 +1,7 @@
-package commands.available.commands;
+package client.commands.available.commands;
 
-import collection.PersonCollection;
-import commands.Command;
+import client.commands.Command;
+import server.PersonCollection;
 
 /**
  * print_unique_location : print the unique values of the location field of all items in the collection

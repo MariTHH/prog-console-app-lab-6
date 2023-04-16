@@ -1,7 +1,7 @@
-package commands.available.commands;
+package client.commands.available.commands;
 
-import collection.PersonCollection;
-import commands.Command;
+import client.commands.Command;
+import server.PersonCollection;
 
 /**
  * info :
@@ -11,7 +11,7 @@ import commands.Command;
 public class Info extends Command {
     private final PersonCollection personCollection;
 
-    public Info (PersonCollection personCollection) {
+    public Info(PersonCollection personCollection) {
         this.personCollection = personCollection;
     }
 

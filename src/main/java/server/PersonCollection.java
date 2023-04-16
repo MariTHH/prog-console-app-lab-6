@@ -1,13 +1,11 @@
-package collection;
+package server;
 
 import client.ClientManager;
-import com.sun.tools.javac.Main;
-import data.Person;
+import common.Person;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.*;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 
@@ -307,11 +305,12 @@ public class PersonCollection {
             Parser.convertToXML(this, sc);
         } catch (FileNotFoundException e) {
             System.out.println("Файл для сохранения не найден");
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             System.out.println("Сохранит в текущий файл");
-            Parser.convertToXML(this,file);
+            Parser.convertToXML(this, file);
         }
     }
+
     /**
      * adds a person if he is higher than the other for script
      *
@@ -333,6 +332,7 @@ public class PersonCollection {
             return false;
         }
     }
+
     /**
      * adds a person if he is lower than the other
      *

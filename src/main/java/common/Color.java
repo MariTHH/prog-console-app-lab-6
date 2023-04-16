@@ -1,4 +1,4 @@
-package data;
+package common;
 
 /**
  * Enum with colors and codes for it

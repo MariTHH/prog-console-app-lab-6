@@ -1,7 +1,7 @@
-package commands.available.commands;
+package client.commands.available.commands;
 
-import collection.PersonCollection;
-import commands.Command;
+import client.commands.Command;
+import server.PersonCollection;
 
 
 /**
