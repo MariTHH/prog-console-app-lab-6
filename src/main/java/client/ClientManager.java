@@ -52,7 +52,9 @@ public class ClientManager {
             System.out.println("Неправильно введены данные");
             return null;
         }
+
     }
 
+System.out.println("as");
 }
 
