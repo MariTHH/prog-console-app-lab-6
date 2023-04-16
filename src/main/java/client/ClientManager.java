@@ -55,6 +55,6 @@ public class ClientManager {
 
     }
 
-System.out.println("as");
+
 }
 
