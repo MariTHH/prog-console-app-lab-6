@@ -1,4 +1,4 @@
-package common;
+package common.data;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;

@@ -1,4 +1,4 @@
-package common;
+package common.data;
 
 /**
  * Enum with countries and codes for it

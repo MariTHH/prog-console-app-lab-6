@@ -1,6 +1,6 @@
 package client;
 
-import data.*;
+import common.data.*;
 
 import java.util.*;
 

@@ -1,13 +1,13 @@
 package client;
 
-import collection.PersonCollection;
-import commands.CommandManager;
+import client.commands.CommandManager;
+import server.PersonCollection;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.util.Scanner;
 
-import static collection.Parser.convertToJavaObject;
+import static server.Parser.convertToJavaObject;
 
 /**
  * Reads the file for the main

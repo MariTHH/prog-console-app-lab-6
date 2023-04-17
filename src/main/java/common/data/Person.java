@@ -1,4 +1,4 @@
-package common;
+package common.data;
 
 import com.sun.istack.NotNull;
 import server.GenerationId;
@@ -151,11 +151,11 @@ public class Person implements Comparable<Person> {
     /**
      * sorting the collection by height
      *
-     * @param person the object to be compared.
+     * @param personName the object to be compared.
      * @return compare collection
      */
-    public int compareTo(Person person) {
-        return Integer.compare(this.height - person.getHeight(), 0);
+    public int compareTo(Person personName) {
+        return name.compareTo(personName.name);
     }
 }
 

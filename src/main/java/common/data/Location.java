@@ -1,4 +1,4 @@
-package common;
+package common.data;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

@@ -1,7 +1,7 @@
 package server;
 
 import client.ClientManager;
-import common.Person;
+import common.data.Person;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.*;
@@ -21,7 +21,7 @@ public class PersonCollection {
     private String filename;
     private TreeSet<Person> treeSet = new TreeSet<>();
     private static Date creationDate = new Date();
-
+    //private final Comparator<Person> sortByName = Comparator.comparing(Person::getName);
 
     public PersonCollection(TreeSet<Person> treeSet, String filename) {
         this.treeSet = treeSet;
