@@ -1,13 +1,13 @@
 import client.Console;
-import collection.PersonCollection;
-import commands.CommandManager;
+import client.commands.CommandManager;
+import server.PersonCollection;
 
 import java.io.*;
 import java.util.*;
 
 import javax.xml.bind.JAXBException;
 
-import static collection.Parser.convertToJavaObject;
+import static server.Parser.convertToJavaObject;
 
 /**
  * Main class starts the application

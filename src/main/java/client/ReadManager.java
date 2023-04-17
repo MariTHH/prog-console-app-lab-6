@@ -1,6 +1,7 @@
 package client;
 
-import data.*;
+import common.data.Color;
+import common.data.Country;
 
 import java.util.*;
 

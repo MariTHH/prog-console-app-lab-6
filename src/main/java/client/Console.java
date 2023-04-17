@@ -14,6 +14,7 @@ import static server.Parser.convertToJavaObject;
  */
 public class Console {
     PersonCollection collection = new PersonCollection();
+
     public void fileRead() throws JAXBException {
         while (true) {
             try {
@@ -27,7 +28,7 @@ public class Console {
                 while (CommandManager.getWork()) {
                     CommandManager.existCommand();
                 }
-            } catch (IllegalArgumentException e){
+            } catch (IllegalArgumentException e) {
                 System.out.println("Файл не найден");
             }
         }
