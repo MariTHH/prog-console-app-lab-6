@@ -14,7 +14,7 @@ import java.util.Scanner;
  * The class is responsible for checking for the correctness of commands and running them
  */
 public class CommandManager {
-    private final PersonCollection personCollection;
+    private PersonCollection personCollection;
     private static boolean isWorking = true;
     private static HashMap<String, Command> commandMap = new HashMap<String,Command>();
     private static String filelink;
@@ -24,8 +24,7 @@ public class CommandManager {
      *
      * @param personCollection
      */
-    public CommandManager(PersonCollection personCollection) {
-        this.personCollection = personCollection;
+    public CommandManager(RequestManager requestManager,PersonCollection personCollection) {
         commandMap = new HashMap<>();
         initializeCommand(new Add(requestManager));
         initializeCommand(new AddIfMax(requestManager));
