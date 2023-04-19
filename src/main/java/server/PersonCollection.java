@@ -1,12 +1,20 @@
 package server;
 
 import client.ClientManager;
+import client.RequestManager;
+import client.commands.Command;
+import client.commands.CommandManager;
+import common.DataManager;
 import common.data.Person;
+import common.network.CommandResult;
+import common.network.Request;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.*;
 import java.io.*;
 import java.util.*;
+
+import static server.Parser.convertToJavaObject;
 
 
 /**
@@ -16,20 +24,27 @@ import java.util.*;
         name = "persons"
 )
 @XmlAccessorType(XmlAccessType.FIELD)
-public class PersonCollection {
+public class PersonCollection extends DataManager {
     @XmlElement(name = "Person")
     private String filename;
+    private Parser parser;
     private TreeSet<Person> treeSet = new TreeSet<>();
     private static Date creationDate = new Date();
     //private final Comparator<Person> sortByName = Comparator.comparing(Person::getName);
 
-    public PersonCollection(TreeSet<Person> treeSet, String filename) {
-        this.treeSet = treeSet;
-        this.filename = filename;
+    public PersonCollection(Parser parser) throws JAXBException {
+        //this.treeSet = treeSet;
+        //this.filename = filename;
+        this.parser = parser;
+        loadCollection();
     }
 
-
     public PersonCollection() {
+
+    }
+
+    public void loadCollection() throws JAXBException {
+        treeSet = convertToJavaObject(new File("s")).getCollection();
     }
 
     /**
@@ -39,7 +54,6 @@ public class PersonCollection {
      */
     public void addPerson(Person person) {
         treeSet.add(person);
-
     }
 
     /**
@@ -53,6 +67,7 @@ public class PersonCollection {
      * displays information about the character with all fields
      *
      * @param person
+     * @return
      */
     public void personInfo(Person person) {
         System.out.println("ID: " + person.getId());
@@ -66,72 +81,73 @@ public class PersonCollection {
         System.out.println("Локация: " + "X: " + person.getLocation().getX() + " Y: " + person.getLocation().getY() + " Название: " + person.getLocation().getLocationName());
     }
 
+    public CommandResult add(Request<?> request) {
+        try {
+            Person person = (Person) request.type;
+            //person.setId(generateNextId());
+            treeSet.add(person);
+            return new CommandResult(true, "Новый элемент успешно добавлен");
+        } catch (Exception exception) {
+            return new CommandResult(false, "Передан аргумент другого типа");
+        }
+    }
+
+
     /**
      * displays information about each person
      */
-    public void information() {
+    public String information() {
         if (treeSet.isEmpty()) {
-            System.out.println("В коллекции ничего нет");
-        } else
-            for (Person person : treeSet) {
-                personInfo(person);
+            return "В коллекции ничего нет";
+        }
+        for (Person person : treeSet) {
+            personInfo(person);
+        }
+        return "good";
+    }
+
+    public CommandResult show(Request<?> request) {
+        return new CommandResult(true, information());
+    }
+
+    /**
+     * method which compares the characters' height
+     * @param height_int
+     * @return true or false
+     */
+    public boolean toHeight(int height_int) {
+        boolean flag = true;
+        for (Person person : treeSet) {
+            if (height_int > person.getHeight()) {
+                flag = true;
+            } else {
+                flag = false;
             }
+        }
+        return flag;
     }
 
-    /**
-     * adds a person if he is lower than the other
-     *
-     * @param sc
-     */
-    public void addIfMin(String sc) {
-        Scanner scanner = new Scanner(System.in);
-        String height_s = sc.trim();
-        int height_int = Integer.parseInt(height_s);
-        boolean flag = false;
-        for (Person person1 : treeSet) {
-            flag = height_int < person1.getHeight();
-
-        }
-        if (flag) {
-            Person person = ClientManager.getNewPerson(scanner);
-            addPerson(person);
-            person.setHeight(height_int);
-            System.out.println("Самый низкий персонаж добавлен");
-        } else {
-            System.out.println("Персонаж не ниже всех");
-        }
+    public CommandResult addIfMax(Request<?> request) {
+        Person person = (Person) request.type;
+        addPerson(person);
+        //person.setHeight(height_int);
+        return new CommandResult(true, "Новый элемент успешно добавлен");
     }
 
-
-    /**
-     * adds a person if he is higher than the other
-     *
-     * @param sc
-     */
-    public void addIfMax(String sc) {
-        Scanner scanner = new Scanner(System.in);
-        String height_s = sc.trim();
-        int height_int = Integer.parseInt(height_s);
-        boolean flag = false;
-        for (Person person1 : treeSet) {
-            flag = height_int > person1.getHeight();
-
-        }
-        if (flag) {
-            Person person = ClientManager.getNewPerson(scanner);
-            addPerson(person);
-            person.setHeight(height_int);
-            System.out.println("Самый высокий персонаж добавлен");
-        } else {
-            System.out.println("Персонаж не выше всех");
-        }
+    public CommandResult addIfMin(Request<?> request) {
+        Person person = (Person) request.type;
+        addPerson(person);
+        //person.setHeight(height_int);
+        return new CommandResult(true, "Новый элемент успешно добавлен");
     }
+
 
     /**
      * clears the collection
      */
-    public void clearCollection() {
+    public CommandResult clear(Request<?> request) {
         treeSet.clear();
+        return new CommandResult(true, "Элементы удалены");
     }
 
     /**
@@ -257,20 +273,10 @@ public class PersonCollection {
      * print information about available commands
      */
     public static void help() {
-        System.out.println("add {element} : добавить новый элемент в коллекцию \n" +
-                "add_if_max {element} : добавить новый элемент в коллекцию, если его значение превышает значение наибольшего элемента этой коллекции \n" +
-                "add_if_min {element} : добавить новый элемент в коллекцию, если его значение меньше, чем у наименьшего элемента этой коллекции \n" +
-                "clear : очистить коллекцию \n" +
-                "count_greater_than_eye_color eyeColor : вывести количество элементов, значение поля eyeColor которых больше заданного \n" +
-                "filter_greater_than_location location : вывести элементы, значение поля location которых больше заданного \n" +
-                "help : вывести справку по доступным командам \n" +
-                "info : вывести в стандартный поток вывода информацию о коллекции (тип, дата инициализации, количество элементов) \n" +
-                "print_unique_location : вывести уникальные значения поля location всех элементов в коллекции \n" +
-                "remove_by_id id : удалить элемент из коллекции по его id \n" +
-                "remove_greater {element} : удалить из коллекции все элементы, превышающие заданный \n" +
-                "show : вывести в стандартный поток вывода все элементы коллекции в строковом представлении \n" +
-                "update id {element} : обновить значение элемента коллекции, id которого равен заданному"
-        );
+        for (Map.Entry<String, Command> e : CommandManager.getCommandMap().entrySet()) {
+            Command command = e.getValue();
+            System.out.println(command.getName() + " : " + command.getDescription());
+        }
     }
 
     /**
