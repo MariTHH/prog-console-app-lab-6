@@ -1,6 +1,9 @@
 package client.commands.available.commands;
 
 import client.commands.Command;
+import common.data.Person;
+import common.network.CommandResult;
+import common.network.Request;
 import server.PersonCollection;
 
 /**
@@ -18,7 +21,12 @@ public class Show extends Command {
         if (args.length > 1) {
             System.out.println("Вы неправильно ввели команду");
         } else {
-            personCollection.information();
+            Request<String> request = new Request<>(getName(), null);
+            CommandResult result = requestManager.sendRequest(request);
+            if (result.status) {
+                System.out.println((result.message));
+            } else
+                System.out.println("Ошибка");
         }
     }
 
