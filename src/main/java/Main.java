@@ -13,7 +13,7 @@ import static server.Parser.convertToJavaObject;
  * Main class starts the application
  */
 public class Main {
-    public static void main(String[] args) throws IllegalArgumentException {
+    /**public static void main(String[] args) throws IllegalArgumentException {
 
         try {
             PersonCollection collection = new PersonCollection();
@@ -46,6 +46,6 @@ public class Main {
             System.out.println(e.getMessage());
             System.out.println("Приложение не может запуститься");
         }
-    }
+    }*/
 }
 
