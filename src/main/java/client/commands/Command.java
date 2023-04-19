@@ -1,5 +1,7 @@
 package client.commands;
 
+import client.RequestManager;
+
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -19,6 +21,12 @@ public abstract class Command {
      * @throws FileNotFoundException
      */
     public abstract void execute(String[] args) throws JAXBException, IOException, FileNotFoundException;
+    protected RequestManager requestManager;
+
+    public Command() {}
+    public Command(RequestManager requestManager) {
+        this.requestManager = requestManager;
+    }
 
     public Object getArgument() {
         return argument;
@@ -27,5 +35,7 @@ public abstract class Command {
     public void setArgument(Object argument) {
         this.argument = argument;
     }
+    public abstract String getName();
+    public abstract String getDescription();
 
 }

@@ -22,4 +22,13 @@ public class FilterGreaterThanLocation extends Command {
             personCollection.filterGreater(args[1]);
         }
     }
+    @Override
+    public String getName() {
+        return "filter_greater_than_location";
+    }
+
+    @Override
+    public String getDescription() {
+        return "вывести элементы, значение поля location которых больше заданного";
+    }
 }

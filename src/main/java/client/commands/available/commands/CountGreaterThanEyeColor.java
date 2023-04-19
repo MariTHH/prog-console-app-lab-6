@@ -1,7 +1,7 @@
 package client.commands.available.commands;
 
 import client.commands.Command;
-import data.Color;
+import common.data.Color;
 import server.PersonCollection;
 
 /**
@@ -47,4 +47,15 @@ public class CountGreaterThanEyeColor extends Command {
             System.out.println("Вы неправильно ввели аргумент команды");
         }
     }
+
+    @Override
+    public String getName() {
+        return "count_greater_than_eye_color";
+    }
+
+    @Override
+    public String getDescription() {
+        return "вывести количество элементов, значение поля eyeColor которых больше заданного";
+    }
 }
+

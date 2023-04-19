@@ -107,6 +107,15 @@ public class ExecuteScript extends Command {
     public static ArrayList<String> getPersonList() {
         return personList;
     }
+    @Override
+    public String getName() {
+        return "execute_script";
+    }
+
+    @Override
+    public String getDescription() {
+        return "считать и исполнить скрипт из указанного файла";
+    }
 }
 
 

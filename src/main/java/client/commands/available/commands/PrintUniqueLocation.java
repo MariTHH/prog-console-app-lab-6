@@ -21,4 +21,13 @@ public class PrintUniqueLocation extends Command {
             personCollection.printUniqueLocation();
         }
     }
+    @Override
+    public String getName() {
+        return "print_unique_location";
+    }
+
+    @Override
+    public String getDescription() {
+        return " вывести уникальные значения поля location всех элементов в коллекции";
+    }
 }

@@ -15,4 +15,14 @@ public class Help extends Command {
             PersonCollection.help();
         }
     }
+
+    @Override
+    public String getName() {
+        return "help";
+    }
+
+    @Override
+    public String getDescription() {
+        return "вывести справку по доступным командам";
+    }
 }
