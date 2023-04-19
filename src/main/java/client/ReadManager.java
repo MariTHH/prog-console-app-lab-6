@@ -181,7 +181,7 @@ public class ReadManager {
     }
 
     public static Color readColor(Scanner sc) {
-        System.out.println("Выберите любой цвет из предложенных" + "GREEN(1) RED(2) BLACK(3) BLUE(4) YELLOW(5) ORANGE(6) WHITE(7)");
+        System.out.println("Выберите любой цвет из предложенных " + "GREEN(1) RED(2) BLACK(3) BLUE(4) YELLOW(5) ORANGE(6) WHITE(7)");
         while (true) {
             try {
                 String type = sc.nextLine().trim();
@@ -223,7 +223,7 @@ public class ReadManager {
     }
 
     public static Country readCountry(Scanner sc) {
-        System.out.println("Выберите любую страну из предложенных" + "USA(1) SPAIN(2) CHINA(3) ITALY(4) JAPAN(5)");
+        System.out.println("Выберите любую страну из предложенных " + "USA(1) SPAIN(2) CHINA(3) ITALY(4) JAPAN(5)");
         while (true) {
             try {
                 String type = sc.nextLine().trim();
