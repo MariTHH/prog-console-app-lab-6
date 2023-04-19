@@ -3,13 +3,14 @@ package common.data;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
 /**
  * A class with person location
  */
 @XmlRootElement(name = "Location")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Location {
+public class Location implements Serializable {
     private Double x;
     private float y;
     private String name;

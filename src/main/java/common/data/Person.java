@@ -6,13 +6,14 @@ import server.GenerationId;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import java.io.Serializable;
 import java.time.ZonedDateTime;
 
 /**
  * A class with a character constructor
  */
 @XmlRootElement
-public class Person implements Comparable<Person> {
+public class Person implements Comparable<Person>, Serializable {
     private final int id;
     @XmlElement(
             name = "name",

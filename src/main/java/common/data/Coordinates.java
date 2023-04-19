@@ -2,12 +2,13 @@ package common.data;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import java.io.Serializable;
 
 /**
  * A class with person coordinates
  */
 @XmlType(propOrder = {"x", "y"})
-public class Coordinates {
+public class Coordinates implements Serializable {
     private long x;
     private int y;
 
