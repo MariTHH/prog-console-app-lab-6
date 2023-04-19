@@ -1,7 +1,12 @@
 package client.commands.available.commands;
 
+import client.RequestManager;
 import client.commands.Command;
+import common.network.CommandResult;
+import common.network.Request;
 import server.PersonCollection;
+
+import javax.xml.bind.JAXBException;
 
 /**
  * info :
@@ -9,18 +14,33 @@ import server.PersonCollection;
  * (type, initialization date, number of items, etc.)
  */
 public class Info extends Command {
-    private final PersonCollection personCollection;
 
-    public Info(PersonCollection personCollection) {
-        this.personCollection = personCollection;
+    public Info(RequestManager requestManager) {
+        super(requestManager);
     }
 
     @Override
-    public void execute(String[] args) {
+    public void execute(String[] args) throws JAXBException {
         if (args.length > 1) {
             System.out.println("Вы неправильно ввели команду");
         } else {
-            personCollection.info();
+            PersonCollection personCollection = new PersonCollection();
+            personCollection.loadCollection();
+            Request<String> request = new Request<>(getName(), null);
+            CommandResult result = requestManager.sendRequest(request);
+            if (result.status) {
+                System.out.println((result.message));
+            }
         }
+    }
+
+    @Override
+    public String getName() {
+        return "info";
+    }
+
+    @Override
+    public String getDescription() {
+        return "вывести в стандартный поток вывода информацию о коллекции (тип, дата инициализации, количество элементов и т.д.)";
     }
 }
