@@ -1,8 +1,9 @@
 package client.commands.available.commands;
 
-import client.ClientManager;
+import client.*;
 import client.commands.Command;
-import server.PersonCollection;
+import common.data.Person;
+import common.network.*;
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -14,8 +15,9 @@ import java.util.Scanner;
 public class Add extends Command {
     private final PersonCollection personCollection;
 
-    public Add(PersonCollection personCollection) {
-        this.personCollection = personCollection;
+    public Add(RequestManager requestManager) {
+        super(requestManager);
+
 
     }
 
@@ -27,15 +29,32 @@ public class Add extends Command {
      */
     @Override
     public void execute(String[] args) throws FileNotFoundException {
-        if (ExecuteScript.getFlag()) {
-            personCollection.addPerson(ClientManager.createPersonFromScript(ExecuteScript.getPersonList()));
-        } else if (args.length > 1) {
+        //if (ExecuteScript.getFlag()) {
+        //personCollection.addPerson(ClientManager.createPersonFromScript(ExecuteScript.getPersonList()));
+//        }
+        if (args.length > 1) {
             System.out.println("Вы неправильно ввели команду");
         } else {
             Scanner sc = new Scanner(System.in);
-            personCollection.addPerson(ClientManager.getNewPerson(sc));
-            System.out.println("Ваш персонаж теперь в коллекции");
+            Person newPerson = ClientManager.getNewPerson(sc);
+            Request<Person> request = new Request<>(getName(), newPerson);
+            CommandResult result = requestManager.sendRequest(request);
+            if (result.status) {
+                System.out.println((result.message));
+                System.out.println("Ваш персонаж теперь в коллекции");
+            } else
+                System.out.println("Ошибка");
         }
+    }
+
+    @Override
+    public String getName() {
+        return "add";
+    }
+
+    @Override
+    public String getDescription() {
+        return "добавить новый элемент в коллекцию";
     }
 
 
