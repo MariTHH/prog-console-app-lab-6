@@ -1,5 +1,6 @@
 package client.commands;
 
+import client.RequestManager;
 import client.commands.available.commands.*;
 import server.PersonCollection;
 
@@ -15,7 +16,7 @@ import java.util.Scanner;
 public class CommandManager {
     private final PersonCollection personCollection;
     private static boolean isWorking = true;
-    private static HashMap<String, Command> commandMap = new HashMap();
+    private static HashMap<String, Command> commandMap = new HashMap<String,Command>();
     private static String filelink;
 
     /**
@@ -26,22 +27,25 @@ public class CommandManager {
     public CommandManager(PersonCollection personCollection) {
         this.personCollection = personCollection;
         commandMap = new HashMap<>();
-        commandMap.put("add", new Add(personCollection));
-        commandMap.put("add_if_max", new AddIfMax(personCollection));
-        commandMap.put("add_if_min", new AddIfMin(personCollection));
-        commandMap.put("clear", new Clear(personCollection));
-        commandMap.put("remove_by_id", new RemoveById(personCollection));
-        commandMap.put("show", new Show(personCollection));
-        commandMap.put("remove_greater", new RemoveGreater(personCollection));
-        commandMap.put("count_greater_than_eye_color", new CountGreaterThanEyeColor(personCollection));
-        commandMap.put("update", new Update(personCollection));
-        commandMap.put("filter_greater_than_location", new FilterGreaterThanLocation(personCollection));
-        commandMap.put("print_unique_location", new PrintUniqueLocation(personCollection));
-        commandMap.put("info", new Info(personCollection));
-        commandMap.put("help", new Help());
-        commandMap.put("save", new Save(personCollection));
-        commandMap.put("exit", new Exit());
-        commandMap.put("execute_script", new ExecuteScript(personCollection));
+        initializeCommand(new Add(requestManager));
+        initializeCommand(new AddIfMax(requestManager));
+        initializeCommand(new AddIfMin(requestManager));
+        initializeCommand(new Show(requestManager));
+        initializeCommand(new Clear(requestManager));
+        initializeCommand(new Info(requestManager));
+        initializeCommand(new Exit());
+        /**
+        initializeCommand(new Clear(personCollection));
+        initializeCommand(new RemoveById(requestManager,personCollection));
+        initializeCommand(new RemoveGreater(requestManager,personCollection));
+        initializeCommand(new CountGreaterThanEyeColor(requestManager,personCollection));
+        initializeCommand(new Update(requestManager,personCollection));
+        initializeCommand(new FilterGreaterThanLocation(requestManager,personCollection));
+        initializeCommand(new PrintUniqueLocation(requestManager,personCollection));
+        initializeCommand(new Info(requestManager,personCollection));
+        initializeCommand(new Help());
+        initializeCommand(new Save(requestManager,personCollection));
+        initializeCommand(new ExecuteScript(requestManager,personCollection));*/
     }
 
     public PersonCollection getPersonCollection() {
@@ -51,27 +55,27 @@ public class CommandManager {
     /**
      * checks for the correctness of the command and starts
      */
-    public static void existCommand() {
-        Scanner sc = new Scanner(System.in);
+    public static void existCommand(String input) {
+        String[] args = input.trim().split(" ");
         try {
-            System.out.println("Введите команду: ");
-            String command = sc.nextLine().trim();
+            //String command = sc.nextLine().trim();
+            String command = args[0];
 
-            String[] commandArg = command.split(" ");
+            String[] commandArg = args;
             String argument;
 
-            if (commandArg.length == 1)
+            if (args.length == 1)
                 argument = null;
-            else if (commandArg.length == 2)
-                argument = commandArg[1];
+            else if (args.length == 2)
+                argument = args[1];
             else {
                 System.out.println("Проблема с аргументом, обратитесь к команде help");
                 return;
             }
 
-            if (commandMap.containsKey(commandArg[0])) {
-                commandMap.get(commandArg[0]).setArgument(argument);
-                commandMap.get(commandArg[0]).execute(commandArg);
+            if (commandMap.containsKey(command)) {
+                commandMap.get(command).setArgument(argument);
+                commandMap.get(command).execute(args);
             } else {
                 System.out.println("Команды " + commandArg[0] + " не существует");
             }
@@ -101,8 +105,16 @@ public class CommandManager {
         this.filelink = filelink;
     }
 
+    void initializeCommand(Command command){
+        if(commandMap.containsKey(command.getName())){
+            throw new IllegalArgumentException("Данная команда уже есть");
+        }
+        commandMap.put(command.getName(), command);
+    }
+
 
 }
+
 
 
 
