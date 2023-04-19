@@ -2,7 +2,7 @@ package client;
 
 import common.Configuration;
 import common.network.Request;
-import common.network.ResultAfterCommand;
+import common.network.CommandResult;
 
 import java.io.*;
 import java.net.Socket;
@@ -18,7 +18,7 @@ public class RequestManager {
         this.port = port;
     }
 
-    public ResultAfterCommand sendRequest(Request<?> request) {
+    public CommandResult sendRequest(Request<?> request) {
         if (request == null) {
             throw new IllegalArgumentException("Запрос является null");
         }
@@ -34,7 +34,7 @@ public class RequestManager {
 
                 InputStream receive = socket.getInputStream();
                 ObjectInputStream objectReceive = new ObjectInputStream(receive);
-                ResultAfterCommand result = (ResultAfterCommand) objectReceive.readObject();
+                CommandResult result = (CommandResult) objectReceive.readObject();
                 if (attempt != 0) {
                     System.out.println("Подключение установлено");
                 }
@@ -49,6 +49,6 @@ public class RequestManager {
                 }
             }
         }
-        return new ResultAfterCommand(false, "Прошло 30 секунд, сервер не отвечает.");
+        return new CommandResult(false, "Прошло 30 секунд, сервер не отвечает.");
     }
 }
