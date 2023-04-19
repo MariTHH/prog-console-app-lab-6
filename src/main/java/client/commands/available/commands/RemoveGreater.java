@@ -22,4 +22,13 @@ public class RemoveGreater extends Command {
             personCollection.removeGreater(args[1]);
         }
     }
+    @Override
+    public String getName() {
+        return "remove_greater";
+    }
+
+    @Override
+    public String getDescription() {
+        return "удалить из коллекции все элементы, превышающие заданный";
+    }
 }

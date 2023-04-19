@@ -1,5 +1,6 @@
 package client.commands.available.commands;
 
+import client.RequestManager;
 import client.commands.Command;
 import common.data.Person;
 import common.network.CommandResult;
@@ -10,10 +11,11 @@ import server.PersonCollection;
  * Command show. Output to the standard output stream all elements of the collection in string representation
  */
 public class Show extends Command {
-    private PersonCollection personCollection;
+    // private PersonCollection personCollection;
 
-    public Show(PersonCollection personCollection) {
-        this.personCollection = personCollection;
+    public Show(RequestManager requestManager) {
+        super(requestManager);
+
     }
 
     @Override
@@ -28,6 +30,17 @@ public class Show extends Command {
             } else
                 System.out.println("Ошибка");
         }
+    }
+
+
+    @Override
+    public String getName() {
+        return "show";
+    }
+
+    @Override
+    public String getDescription() {
+        return "вывести в стандартный поток вывода все элементы коллекции в строковом представлении";
     }
 
 }

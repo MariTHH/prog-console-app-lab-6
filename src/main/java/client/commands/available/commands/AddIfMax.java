@@ -66,4 +66,10 @@ public class AddIfMax extends Command {
     public String getName() {
         return "add_if_max";
     }
+
+    @Override
+    public String getDescription() {
+        return "добавить новый элемент в коллекцию, если его значение превышает значение наибольшего элемента этой коллекции";
+    }
+
 }

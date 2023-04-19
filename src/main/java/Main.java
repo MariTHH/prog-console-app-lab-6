@@ -1,4 +1,5 @@
 import client.Console;
+import client.RequestManager;
 import client.commands.CommandManager;
 import server.PersonCollection;
 

@@ -265,8 +265,9 @@ public class PersonCollection extends DataManager {
     /**
      * print info about collection
      */
-    public void info() {
+    public CommandResult info(Request<?> request) {
         System.out.println(treeSet.getClass().getName() + " " + PersonCollection.creationDate + " " + treeSet.size());
+        return new CommandResult(true, "Выведена имнформация о коллекции");
     }
 
     /**

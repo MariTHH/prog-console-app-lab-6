@@ -57,5 +57,19 @@ public class Update extends Command {
             System.out.println("jd");
         }
     }
+
+
+    @Override
+    public String getName() {
+        return "update";
+
+    }
+
+    @Override
+    public String getDescription() {
+        return "обновить значение элемента коллекции, id которого равен заданному";
+    }
+
 }
+
 

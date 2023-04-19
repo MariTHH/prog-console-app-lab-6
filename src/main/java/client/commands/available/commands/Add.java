@@ -13,7 +13,7 @@ import java.util.Scanner;
  * Command add {element}
  */
 public class Add extends Command {
-    private final PersonCollection personCollection;
+
 
     public Add(RequestManager requestManager) {
         super(requestManager);

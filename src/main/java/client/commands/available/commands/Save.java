@@ -31,6 +31,15 @@ public class Save extends Command {
         }
     }
 
+    @Override
+    public String getName() {
+        return "save";
+    }
+
+    @Override
+    public String getDescription() {
+        return "сохранить коллекцию в файл";
+    }
 }
 
 

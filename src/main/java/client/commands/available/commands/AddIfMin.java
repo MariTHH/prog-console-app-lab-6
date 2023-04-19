@@ -1,18 +1,25 @@
 package client.commands.available.commands;
 
 import client.ClientManager;
+import client.RequestManager;
 import client.commands.Command;
+import common.data.Person;
+import common.network.CommandResult;
+import common.network.Request;
 import server.PersonCollection;
+
+import javax.xml.bind.JAXBException;
+import java.util.Scanner;
 
 
 /**
  * add_if_min {element} :
  */
 public class AddIfMin extends Command {
-    private final PersonCollection personCollection;
 
-    public AddIfMin(PersonCollection personCollection) {
-        this.personCollection = personCollection;
+
+    public AddIfMin(RequestManager requestManager) {
+        super(requestManager);
     }
 
     /**

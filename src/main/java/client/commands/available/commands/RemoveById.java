@@ -56,6 +56,14 @@ public class RemoveById extends Command {
             RemoveById.remove_by_id(args[1]);
         }
     }
+    @Override
+    public String getName() {
+        return "remove_by_id";
+    }
 
+    @Override
+    public String getDescription() {
+        return "удалить элемент из коллекции по его id";
+    }
 }
 

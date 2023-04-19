@@ -25,8 +25,6 @@ public class ClientManager {
         Color eyeColor = ReadManager.readColor(sc);
         Color hairColor = ReadManager.readColor(sc);
         Country nationality = ReadManager.readCountry(sc);
-
-
         return new Person(name, new Coordinates(X, Y), height, eyeColor, hairColor, nationality, new Location(X2, Y2, location));
     }
 
