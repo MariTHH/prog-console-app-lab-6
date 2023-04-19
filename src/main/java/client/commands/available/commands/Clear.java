@@ -1,30 +1,46 @@
 package client.commands.available.commands;
 
+import client.RequestManager;
 import client.commands.Command;
+import common.data.Person;
+import common.network.CommandResult;
+import common.network.Request;
 import server.PersonCollection;
+
+import javax.xml.bind.JAXBException;
 
 
 /**
  * Command clear : clear the collection
  */
 public class Clear extends Command {
-    private final PersonCollection personCollection;
 
-    public Clear(PersonCollection personCollection) {
-        this.personCollection = personCollection;
+    public Clear(RequestManager requestManager) {
+        super(requestManager);
     }
 
     @Override
-    public void execute(String[] args) {
+    public void execute(String[] args) throws JAXBException {
         if (args.length > 1) {
             System.out.println("Вы неправильно ввели команду");
         } else {
-            clear();
+            PersonCollection personCollection = new PersonCollection();
+            personCollection.loadCollection();
+            Request<?> request = new Request<String>(getName(),null);
+            CommandResult result = requestManager.sendRequest(request);
+            if (result.status) {
+                System.out.println("Коллекция очищена");
+                System.out.println((result.message));
+            }
         }
     }
+    @Override
+    public String getName() {
+        return "clear";
+    }
 
-    public void clear() {
-        personCollection.clearCollection();
-        System.out.println("Коллекция очищена");
+    @Override
+    public String getDescription() {
+        return "очистить коллекцию";
     }
 }
