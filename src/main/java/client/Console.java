@@ -23,10 +23,13 @@ public class Console {
                 String Path = scanner.nextLine();
                 File file = new File(String.valueOf(Path));
                 collection.setCollection(convertToJavaObject(file).getCollection());
-                CommandManager commandManager = new CommandManager(collection);
+                RequestManager requestManager = new RequestManager();
+                CommandManager commandManager = new CommandManager(requestManager, collection);
                 commandManager.setFilelink(Path);
                 while (CommandManager.getWork()) {
-                    CommandManager.existCommand();
+                    String input;
+                    input = scanner.nextLine();
+                    CommandManager.existCommand(input);
                 }
             } catch (IllegalArgumentException e) {
                 System.out.println("Файл не найден");
