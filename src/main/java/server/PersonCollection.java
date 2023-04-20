@@ -279,6 +279,12 @@ public class PersonCollection extends DataManager {
             System.out.println(command.getName() + " : " + command.getDescription());
         }
     }
+*/
+  public CommandResult help(Request<?> request) {
+      CommandManager commandManager = new CommandManager(new RequestManager(), new PersonCollection());
+      commandManager.getCommandMap().forEach((description,command) -> System.out.println(command.getDescription()));
+        return new CommandResult(true,"Выведена информация о командах");
+    }
 
     /**
      * set collection
