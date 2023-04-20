@@ -17,9 +17,7 @@ public abstract class DataManager {
     public abstract CommandResult info(Request<?> request);
     public abstract CommandResult help(Request<?> request);
 
-    /**public abstract CommandResult clear(Request<?> request);
-     public abstract CommandResult countByGroupAdmin(Request<?> request);
-     public abstract CommandResult info(Request<?> request);
+    /**
      public abstract CommandResult filterGreaterThanExpelledStudents(Request<?> request);
      public abstract CommandResult removeAllByShouldBeExpelled(Request<?> request);
      public abstract CommandResult removeById(Request<?> request);

@@ -1,7 +1,6 @@
 package server;
 
 import client.RequestManager;
-import client.commands.Command;
 import client.commands.CommandManager;
 import common.DataManager;
 import common.data.Person;
@@ -111,6 +110,7 @@ public class PersonCollection extends DataManager {
 
     /**
      * method which compares the characters' height
+     *
      * @param height_int
      * @return true or false
      */
@@ -313,16 +313,16 @@ public class PersonCollection extends DataManager {
      * @throws IOException
      */
     /**public void save(String file) throws  IOException {
-        try {
-            String sc = file.trim();
-            Parser.convertToXML(this, sc);
-        } catch (FileNotFoundException e) {
-            System.out.println("Файл для сохранения не найден");
-        } catch (NullPointerException e) {
-            System.out.println("Сохранит в текущий файл");
-            Parser.convertToXML(this, file);
-        }
-    }*/
+     try {
+     String sc = file.trim();
+     Parser.convertToXML(this, sc);
+     } catch (FileNotFoundException e) {
+     System.out.println("Файл для сохранения не найден");
+     } catch (NullPointerException e) {
+     System.out.println("Сохранит в текущий файл");
+     Parser.convertToXML(this, file);
+     }
+     }*/
 
     /**
      * adds a person if he is higher than the other for script

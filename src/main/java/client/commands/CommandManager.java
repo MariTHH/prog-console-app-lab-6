@@ -37,10 +37,10 @@ public class CommandManager {
         initializeCommand(new Info(requestManager));
         initializeCommand(new Exit());
         initializeCommand(new Help(requestManager));
+        initializeCommand(new CountGreaterThanEyeColor(requestManager));
         /**
         initializeCommand(new RemoveById(requestManager,personCollection));
         initializeCommand(new RemoveGreater(requestManager,personCollection));
-        initializeCommand(new CountGreaterThanEyeColor(requestManager,personCollection));
         initializeCommand(new Update(requestManager,personCollection));
         initializeCommand(new FilterGreaterThanLocation(requestManager,personCollection));
         initializeCommand(new PrintUniqueLocation(requestManager,personCollection));
