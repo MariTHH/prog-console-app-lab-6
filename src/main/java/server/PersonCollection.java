@@ -102,7 +102,7 @@ public class PersonCollection extends DataManager {
         for (Person person : treeSet) {
             personInfo(person);
         }
-        return "good";
+        return "Коллекция выведена";
     }
 
     public CommandResult show(Request<?> request) {
@@ -388,13 +388,13 @@ public class PersonCollection extends DataManager {
     /**
      * counter of persons whose color code is greater
      *
-     * @param code
+     * @param
      */
     public CommandResult countEyeColor(Request<?> request) {
         int count = 0;
-        Integer code = (Integer) request.type;
+        Integer code = Integer.parseInt((String) request.type);
         for (Person person : treeSet) {
-            if (person.getEyeColor().getCode() == code) {
+            if (person.getEyeColor().getCode() > code) {
                 count += 1;
             }
         }

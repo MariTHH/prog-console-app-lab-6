@@ -7,7 +7,8 @@ import common.network.CommandResult;
 import common.network.Request;
 import server.PersonCollection;
 
-import javax.management.StringValueExp;
+import javax.xml.bind.JAXBException;
+
 
 /**
  * count_greater_than_eye_color eyeColor
@@ -19,16 +20,15 @@ public class CountGreaterThanEyeColor extends Command {
     }
 
     @Override
-    public void execute(String[] args) {
+    public void execute(String[] args) throws JAXBException {
         if (args.length != 2) {
             System.out.println("Вы неправильно ввели команду");
         } else {
             PersonCollection personCollection = new PersonCollection();
-            //personCollection.loadCollection();
+            personCollection.loadCollection();
             if (personCollection.countGreater2(Integer.parseInt(args[1]))) {
 
-               // Integer count = personCollection.countEyeColor(args[1]);
-                Request<Integer> request = new Request<>(getName(), args[1]);
+                Request<String> request = new Request<>(getName(), args[1]);
                 CommandResult result = requestManager.sendRequest(request);
                 if (result.status) {
                     System.out.println((result.message));
