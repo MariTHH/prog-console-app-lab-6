@@ -68,16 +68,17 @@ public class PersonCollection extends DataManager {
      * @param person
      * @return
      */
-    public void personInfo(Person person) {
-        System.out.println("ID: " + person.getId());
-        System.out.println("Имя персонажа: " + person.getName());
-        System.out.println("Координаты: X=" + person.getCoordinates().getX() + ", Y=" + person.getCoordinates().getY());
-        System.out.println("Время создания: " + person.getCreationDate());
-        System.out.println("Рост: " + person.getHeight());
-        System.out.println("Цвет глаз: " + person.getEyeColor());
-        System.out.println("Цвет волос: " + person.getHairColor());
-        System.out.println("Страна: " + person.getNationality());
-        System.out.println("Локация: " + "X: " + person.getLocation().getX() + " Y: " + person.getLocation().getY() + " Название: " + person.getLocation().getLocationName());
+    public String personInfo(Person person) {
+        return ("ID: " + person.getId() +
+                "\nИмя персонажа: " + person.getName() +
+                "\nКоординаты: X=" + person.getCoordinates().getX() + ", Y=" + person.getCoordinates().getY() +
+                "\nВремя создания: " + person.getCreationDate() +
+                "\nРост: " + person.getHeight() +
+                "\nЦвет глаз: " + person.getEyeColor() +
+                "\nЦвет волос: " + person.getHairColor() +
+                "\nСтрана: " + person.getNationality() +
+                "\nЛокация: " + "X: " + person.getLocation().getX() + " Y: " + person.getLocation().getY() + " Название: " + person.getLocation().getLocationName());
+
     }
 
     public CommandResult add(Request<?> request) {
@@ -100,7 +101,7 @@ public class PersonCollection extends DataManager {
             return "В коллекции ничего нет";
         }
         for (Person person : treeSet) {
-            personInfo(person);
+            return personInfo(person);
         }
         return "Коллекция выведена";
     }
@@ -251,20 +252,18 @@ public class PersonCollection extends DataManager {
      * print info about collection
      */
     public CommandResult info(Request<?> request) {
-        System.out.println(treeSet.getClass().getName() + " " + PersonCollection.creationDate + " " + treeSet.size());
-        return new CommandResult(true, "Выведена имнформация о коллекции");
+        String inf = treeSet.getClass().getName() + " " + PersonCollection.creationDate + " " + treeSet.size();
+        return new CommandResult(true, inf);
     }
 
     /**
      * print information about available commands
      */
-    /**
-     *
-     */
     public CommandResult help(Request<?> request) {
+        StringBuilder result = new StringBuilder();
         CommandManager commandManager = new CommandManager(new RequestManager(), new PersonCollection());
-        commandManager.getCommandMap().forEach((description, command) -> System.out.println(command.getDescription()));
-        return new CommandResult(true, "Выведена информация о командах");
+        commandManager.getCommandMap().forEach((description, command) ->  result.append(command.getDescription()).append("\n"));
+        return new CommandResult(true, result.toString());
     }
 
     /**
