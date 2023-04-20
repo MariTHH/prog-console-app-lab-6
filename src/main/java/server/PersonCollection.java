@@ -3,6 +3,7 @@ package server;
 import client.RequestManager;
 import client.commands.CommandManager;
 import common.DataManager;
+import common.data.Color;
 import common.data.Person;
 import common.network.CommandResult;
 import common.network.Request;
@@ -211,21 +212,6 @@ public class PersonCollection extends DataManager {
     }
 
     /**
-     * counter of persons whose color code is greater
-     *
-     * @param code
-     */
-    public void countEyeColor(int code) {
-        int count = 0;
-        for (Person person : treeSet) {
-            if (person.getEyeColor().getCode() == code) {
-                count += 1;
-            }
-        }
-        System.out.println(count);
-    }
-
-    /**
      * filter of persons whose coordinate is greater
      *
      * @param xString
@@ -272,18 +258,13 @@ public class PersonCollection extends DataManager {
     /**
      * print information about available commands
      */
-  /**  public CommandResult help(Request<?> request) {
-        for (Map.Entry<String, Command> e : CommandManager.getCommandMap().entrySet()) {
-            Command command = e.getValue();
-            System.out.println(command.getName() + " : " + command.getDescription());
-        }
-        return new CommandResult(true,"Выведена информация о командах");
-    }
-*/
-  public CommandResult help(Request<?> request) {
-      CommandManager commandManager = new CommandManager(new RequestManager(), new PersonCollection());
-      commandManager.getCommandMap().forEach((description,command) -> System.out.println(command.getDescription()));
-        return new CommandResult(true,"Выведена информация о командах");
+    /**
+     *
+     */
+    public CommandResult help(Request<?> request) {
+        CommandManager commandManager = new CommandManager(new RequestManager(), new PersonCollection());
+        commandManager.getCommandMap().forEach((description, command) -> System.out.println(command.getDescription()));
+        return new CommandResult(true, "Выведена информация о командах");
     }
 
     /**
@@ -366,6 +347,59 @@ public class PersonCollection extends DataManager {
             System.out.println("Персонаж не ниже всех");
             return false;
         }
+    }
+
+    /**
+     * public boolean countGreater(String eyeColor_s) {
+     * try {
+     * String eyeColor = eyeColor_s.trim();
+     * int code = Integer.parseInt(eyeColor);
+     * boolean flag = false;
+     * <p>
+     * for (Color ourColor : Color.values()) {
+     * if (ourColor.getCode() == code) {
+     * countEyeColor(code);
+     * flag = true;
+     * }
+     * }
+     * return flag;
+     * } catch (NumberFormatException e) {
+     * System.out.println("Вы неправильно ввели аргумент команды");
+     * }
+     * }
+     */
+   /** public CommandResult countGreaterThanEyeColor(Request<?> request) {
+        countGreaterThanEyeColor1();
+        return new CommandResult(true, "");
+    }
+*/
+    public boolean countGreater2(int eyeColor_int) {
+
+        boolean flag = false;
+
+        for (Color ourColor : Color.values()) {
+            if (ourColor.getCode() == eyeColor_int) {
+                flag = true;
+            }
+        }
+        return flag;
+    }
+
+    /**
+     * counter of persons whose color code is greater
+     *
+     * @param code
+     */
+    public CommandResult countEyeColor(Request<?> request) {
+        int count = 0;
+        Integer code = (Integer) request.type;
+        for (Person person : treeSet) {
+            if (person.getEyeColor().getCode() == code) {
+                count += 1;
+            }
+        }
+        String a = String.valueOf(count);
+        return new CommandResult(true,a);
     }
 
 }
