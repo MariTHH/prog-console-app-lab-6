@@ -23,6 +23,7 @@ public class Service {
         commands.put("show", dataManager::show);
         commands.put("clear", dataManager::clear);
         commands.put("info", dataManager::info);
+        commands.put("help", dataManager::help);
         /**
          commands.put("count_by_group_admin", dataManager::countByGroupAdmin);
          commands.put("info", dataManager::info);

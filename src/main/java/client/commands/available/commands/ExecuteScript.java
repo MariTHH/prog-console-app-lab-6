@@ -114,7 +114,7 @@ public class ExecuteScript extends Command {
 
     @Override
     public String getDescription() {
-        return "считать и исполнить скрипт из указанного файла";
+        return "execute_script: считать и исполнить скрипт из указанного файла";
     }
 }
 

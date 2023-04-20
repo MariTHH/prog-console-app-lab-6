@@ -1,6 +1,5 @@
 package server;
 
-import client.ClientManager;
 import client.RequestManager;
 import client.commands.Command;
 import client.commands.CommandManager;
@@ -273,11 +272,12 @@ public class PersonCollection extends DataManager {
     /**
      * print information about available commands
      */
-    public static void help() {
+  /**  public CommandResult help(Request<?> request) {
         for (Map.Entry<String, Command> e : CommandManager.getCommandMap().entrySet()) {
             Command command = e.getValue();
             System.out.println(command.getName() + " : " + command.getDescription());
         }
+        return new CommandResult(true,"Выведена информация о командах");
     }
 */
   public CommandResult help(Request<?> request) {
@@ -312,7 +312,7 @@ public class PersonCollection extends DataManager {
      * @throws JAXBException
      * @throws IOException
      */
-    public void save(String file) throws JAXBException, IOException {
+    /**public void save(String file) throws  IOException {
         try {
             String sc = file.trim();
             Parser.convertToXML(this, sc);
@@ -322,7 +322,7 @@ public class PersonCollection extends DataManager {
             System.out.println("Сохранит в текущий файл");
             Parser.convertToXML(this, file);
         }
-    }
+    }*/
 
     /**
      * adds a person if he is higher than the other for script

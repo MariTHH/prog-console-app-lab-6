@@ -41,6 +41,6 @@ public class Clear extends Command {
 
     @Override
     public String getDescription() {
-        return "очистить коллекцию";
+        return "clear: очистить коллекцию";
     }
 }

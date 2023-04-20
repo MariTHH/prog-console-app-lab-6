@@ -28,6 +28,6 @@ public class PrintUniqueLocation extends Command {
 
     @Override
     public String getDescription() {
-        return " вывести уникальные значения поля location всех элементов в коллекции";
+        return "print_unique_location: вывести уникальные значения поля location всех элементов в коллекции";
     }
 }

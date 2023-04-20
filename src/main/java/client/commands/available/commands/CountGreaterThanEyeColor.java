@@ -55,7 +55,7 @@ public class CountGreaterThanEyeColor extends Command {
 
     @Override
     public String getDescription() {
-        return "вывести количество элементов, значение поля eyeColor которых больше заданного";
+        return "count_greater_than_eye_color: вывести количество элементов, значение поля eyeColor которых больше заданного";
     }
 }
 

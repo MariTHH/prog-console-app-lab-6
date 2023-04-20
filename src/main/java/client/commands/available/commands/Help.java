@@ -21,7 +21,12 @@ public class Help extends Command {
         if (args.length > 1) {
             System.out.println("Проблема с аргументом, обратитесь к команде help");
         } else {
-            PersonCollection.help();
+            Request<String> request = new Request<>(getName(), null);
+            CommandResult result = requestManager.sendRequest(request);
+            if (result.status) {
+                System.out.println((result.message));
+            } else
+                System.out.println("Ошибка");
         }
     }
 
@@ -32,6 +37,6 @@ public class Help extends Command {
 
     @Override
     public String getDescription() {
-        return "вывести справку по доступным командам";
+        return "help: вывести справку по доступным командам";
     }
 }

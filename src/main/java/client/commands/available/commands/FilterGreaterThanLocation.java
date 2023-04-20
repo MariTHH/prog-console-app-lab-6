@@ -29,6 +29,6 @@ public class FilterGreaterThanLocation extends Command {
 
     @Override
     public String getDescription() {
-        return "вывести элементы, значение поля location которых больше заданного";
+        return "filter_greater_than_location: вывести элементы, значение поля location которых больше заданного";
     }
 }

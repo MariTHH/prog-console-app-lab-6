@@ -24,10 +24,10 @@ public class Save extends Command {
             if (args.length != 2) {
                 System.out.println("Вы неправильно ввели команду");
             } else {
-                collection.save(args[1]);
+                //collecton.save(args[1]);
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            collection.save(CommandManager.getFilelink());
+            //collection.save(CommandManager.getFilelink());
         }
     }
 
@@ -38,7 +38,7 @@ public class Save extends Command {
 
     @Override
     public String getDescription() {
-        return "сохранить коллекцию в файл";
+        return "save: сохранить коллекцию в файл";
     }
 }
 
