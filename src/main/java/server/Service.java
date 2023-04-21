@@ -25,13 +25,12 @@ public class Service {
         commands.put("info", dataManager::info);
         commands.put("help", dataManager::help);
         commands.put("count_greater_than_eye_color", dataManager:: countEyeColor);
+        commands.put("filter_greater_than_location", dataManager::filterGreater);
+        commands.put("print_unique_location", dataManager::printUniqueLocation);
+        commands.put("remove_by_id", dataManager::remove_by_id);
+        commands.put("remove_greater", dataManager::removeGreater);
+        commands.put("update", dataManager::update);
         /**
-         commands.put("filter_greater_than_expelled_students", dataManager::filterGreaterThanExpelledStudents);
-         commands.put("remove_all_by_should_be_expelled", dataManager::removeAllByShouldBeExpelled);
-         commands.put("remove_by_id", dataManager::removeById);
-         commands.put("remove_greater", dataManager::removeGreater);
-         commands.put("remove_lower", dataManager::removeLower);
-         commands.put("update", dataManager::update);
           */
     }
 

@@ -25,9 +25,7 @@ public class CountGreaterThanEyeColor extends Command {
             System.out.println("Вы неправильно ввели команду");
         } else {
             PersonCollection personCollection = new PersonCollection();
-            personCollection.loadCollection();
             if (personCollection.countGreater2(Integer.parseInt(args[1]))) {
-
                 Request<String> request = new Request<>(getName(), args[1]);
                 CommandResult result = requestManager.sendRequest(request);
                 if (result.status) {

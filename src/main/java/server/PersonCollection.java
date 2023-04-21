@@ -2,6 +2,7 @@ package server;
 
 import client.RequestManager;
 import client.commands.CommandManager;
+import client.commands.available.commands.Update;
 import common.DataManager;
 import common.data.Color;
 import common.data.Person;
@@ -178,6 +179,22 @@ public class PersonCollection extends DataManager {
         }
     }
 
+    public CommandResult remove_by_id(Request<?> request) {
+        String message = null;
+        try {
+            int ID = Integer.parseInt((String) request.type);
+            if (existID(ID)) {
+                removePerson(ID);
+                message = "Персонаж удален";
+            } else {
+                message = "Этого персонажа не существует";
+            }
+        } catch (NumberFormatException e) {
+            message = "Вы неправильно ввели ID";
+        }
+        return new CommandResult(true, message);
+    }
+
     /**
      * updates data of person, ID stays the same
      *
@@ -202,24 +219,32 @@ public class PersonCollection extends DataManager {
     /**
      * removes the highest person
      *
-     * @param sc
+     * @param
      */
-    public void removeGreater(String sc) {
-        String height_s = sc.trim();
-        int height = Integer.parseInt(height_s);
-
-        treeSet.removeIf(person -> person.getHeight() > height);
-
+    public CommandResult removeGreater(Request<?> request) {
+        String message = null;
+        try {
+            int height = Integer.parseInt((String) request.type);
+            if (height > 0) {
+                treeSet.removeIf(person -> person.getHeight() > height);
+                message = "Удален персонаж выше заданного роста";
+            } else {
+                message = "Рост не может быть меньше нуля";
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Рост введен некорректно(значение больше 2 147 483 647)");
+        }
+        return new CommandResult(true, message);
     }
 
     /**
      * filter of persons whose coordinate is greater
      *
-     * @param xString
+     * @param
      */
-    public void filterGreater(String xString) {
+    public CommandResult filterGreater(Request<?> request) {
         try {
-            double x = Double.parseDouble(xString);
+            double x = Double.parseDouble((String) request.type);
 
             for (Person person : treeSet) {
                 if (person.getLocation().getX() > x) {
@@ -229,6 +254,7 @@ public class PersonCollection extends DataManager {
         } catch (NumberFormatException e) {
             System.out.println("Вы неправильно ввели данные");
         }
+        return new CommandResult(true, "Выведен персонаж с большей координатой локации");
     }
 
     private static final ArrayList<Double> uniq = new ArrayList<>();
@@ -236,7 +262,7 @@ public class PersonCollection extends DataManager {
     /**
      * print a not repeated location
      */
-    public void printUniqueLocation() {
+    public CommandResult printUniqueLocation(Request<?> request) {
         for (Person person : treeSet) {
             double X = person.getLocation().getX();
             if (!uniq.contains(X)) {
@@ -244,6 +270,7 @@ public class PersonCollection extends DataManager {
             } else {
                 uniq.remove(X);
             }
+            System.out.println("Выведены все уникальные значения");
         }
         System.out.println(uniq);
     }
@@ -261,8 +288,8 @@ public class PersonCollection extends DataManager {
      */
     public CommandResult help(Request<?> request) {
         StringBuilder result = new StringBuilder();
-        CommandManager commandManager = new CommandManager(new RequestManager(), new PersonCollection());
-        commandManager.getCommandMap().forEach((description, command) ->  result.append(command.getDescription()).append("\n"));
+        CommandManager commandManager = new CommandManager(new RequestManager());
+        commandManager.getCommandMap().forEach((description, command) -> result.append(command.getDescription()).append("\n"));
         return new CommandResult(true, result.toString());
     }
 
@@ -400,6 +427,7 @@ public class PersonCollection extends DataManager {
         String a = String.valueOf(count);
         return new CommandResult(true,a);
     }
+
 
 }
 
