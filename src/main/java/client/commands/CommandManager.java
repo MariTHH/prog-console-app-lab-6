@@ -38,12 +38,12 @@ public class CommandManager {
         initializeCommand(new Exit());
         initializeCommand(new Help(requestManager));
         initializeCommand(new CountGreaterThanEyeColor(requestManager));
+        initializeCommand(new FilterGreaterThanLocation(requestManager));
+        initializeCommand(new PrintUniqueLocation(requestManager));
+        initializeCommand(new RemoveById(requestManager));
+        initializeCommand(new RemoveGreater(requestManager));
+        initializeCommand(new Update(requestManager));
         /**
-        initializeCommand(new RemoveById(requestManager,personCollection));
-        initializeCommand(new RemoveGreater(requestManager,personCollection));
-        initializeCommand(new Update(requestManager,personCollection));
-        initializeCommand(new FilterGreaterThanLocation(requestManager,personCollection));
-        initializeCommand(new PrintUniqueLocation(requestManager,personCollection));
         initializeCommand(new Save(requestManager,personCollection));
         initializeCommand(new ExecuteScript(requestManager,personCollection));*/
     }

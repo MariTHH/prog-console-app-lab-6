@@ -7,6 +7,9 @@ import common.network.CommandResult;
 import common.network.Request;
 import server.PersonCollection;
 
+import javax.xml.bind.JAXBException;
+import java.io.EOFException;
+
 /**
  * Command show. Output to the standard output stream all elements of the collection in string representation
  */
@@ -19,7 +22,7 @@ public class Show extends Command {
     }
 
     @Override
-    public void execute(String[] args) {
+    public void execute(String[] args) throws JAXBException {
         if (args.length > 1) {
             System.out.println("Вы неправильно ввели команду");
         } else {

@@ -13,7 +13,6 @@ import javax.xml.bind.JAXBException;
  * print_unique_location : print the unique values of the location field of all items in the collection
  */
 public class PrintUniqueLocation extends Command {
-    private final PersonCollection personCollection;
 
     public PrintUniqueLocation(RequestManager requestManager) {
         super(requestManager);

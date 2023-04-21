@@ -8,6 +8,7 @@ import common.network.CommandResult;
 import common.network.Request;
 import server.PersonCollection;
 
+import javax.xml.bind.JAXBException;
 import java.util.Scanner;
 
 /**
@@ -17,6 +18,7 @@ public class Update extends Command {
     public Update(RequestManager requestManager) {
         super(requestManager);
     }
+
 
     @Override
     public void execute(String[] args) throws JAXBException {
@@ -62,17 +64,17 @@ public class Update extends Command {
          * }
          */
 
-    @Override
-    public String getName() {
-        return "update";
+        @Override
+        public String getName () {
+            return "update";
+
+        }
+
+        @Override
+        public String getDescription () {
+            return "update: обновить значение элемента коллекции, id которого равен заданному";
+        }
 
     }
-
-    @Override
-    public String getDescription() {
-        return "update: обновить значение элемента коллекции, id которого равен заданному";
-    }
-
-}
 
 

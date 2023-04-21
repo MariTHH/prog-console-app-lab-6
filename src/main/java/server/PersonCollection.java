@@ -1,5 +1,6 @@
 package server;
 
+import client.ClientManager;
 import client.RequestManager;
 import client.commands.CommandManager;
 import client.commands.available.commands.Update;
@@ -216,6 +217,16 @@ public class PersonCollection extends DataManager {
         }
     }
 
+    public CommandResult update1(Request<?> request) {
+        String message = null;
+        //int ID = Integer.parseInt((String) request.type);
+        Person person = (Person) request.type;
+        Update update = new Update(new RequestManager());
+        updateElement(person, Integer.parseInt((String) update.getArgument()));
+        message = "Персонаж обновлен";
+        return new CommandResult(true, message);
+    }
+
     /**
      * removes the highest person
      *
@@ -248,7 +259,7 @@ public class PersonCollection extends DataManager {
 
             for (Person person : treeSet) {
                 if (person.getLocation().getX() > x) {
-                    System.out.println(person.getName() + " : " + person.getLocation().getX());
+                    return new CommandResult(true, person.getName() + " : " + person.getLocation().getX());
                 }
             }
         } catch (NumberFormatException e) {
@@ -272,7 +283,7 @@ public class PersonCollection extends DataManager {
             }
             System.out.println("Выведены все уникальные значения");
         }
-        System.out.println(uniq);
+        return new CommandResult(true, String.valueOf(uniq));
     }
 
     /**
@@ -375,30 +386,20 @@ public class PersonCollection extends DataManager {
         }
     }
 
-    /**
-     * public boolean countGreater(String eyeColor_s) {
-     * try {
-     * String eyeColor = eyeColor_s.trim();
-     * int code = Integer.parseInt(eyeColor);
-     * boolean flag = false;
-     * <p>
-     * for (Color ourColor : Color.values()) {
-     * if (ourColor.getCode() == code) {
-     * countEyeColor(code);
-     * flag = true;
-     * }
-     * }
-     * return flag;
-     * } catch (NumberFormatException e) {
-     * System.out.println("Вы неправильно ввели аргумент команды");
-     * }
-     * }
-     */
-   /** public CommandResult countGreaterThanEyeColor(Request<?> request) {
-        countGreaterThanEyeColor1();
-        return new CommandResult(true, "");
+    public CommandResult update(Request<?> request) {
+        String message = null;
+        try {
+            //int ID = Integer.parseInt((String) request.type);
+            Person person = (Person) request.type;
+                Update update = new Update(new RequestManager());
+                updateElement(person, Integer.parseInt((String) update.getArgument()));
+                message = "Персонаж обновлен";
+        } catch (NumberFormatException e) {
+            System.out.println("ID введен неверно");
+        }
+        return new CommandResult(true, message);
     }
-*/
+
     public boolean countGreater2(int eyeColor_int) {
 
         boolean flag = false;
@@ -424,8 +425,8 @@ public class PersonCollection extends DataManager {
                 count += 1;
             }
         }
-        String a = String.valueOf(count);
-        return new CommandResult(true,a);
+        String countColor = String.valueOf(count);
+        return new CommandResult(true, countColor);
     }
 
 

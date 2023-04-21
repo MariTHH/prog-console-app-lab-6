@@ -48,7 +48,7 @@ public class MainServer {
             System.out.println("Выход");
         }));
 
-        Service executionService = new Service(dataManager);
+        Service service = new Service(dataManager);
 
         AtomicBoolean exit = new AtomicBoolean(false);
 
@@ -60,7 +60,7 @@ public class MainServer {
                 Request<?> request = (Request<?>) objectInputStream.readObject();
                 System.out.println(socketChannel.getRemoteAddress() + ": " + request.command);
 
-                CommandResult result = executionService.executeCommand(request);
+                CommandResult result = service.executeCommand(request);
                 if (result.status)
                     System.out.println("Команда выполнена успешно");
                 else
@@ -73,4 +73,5 @@ public class MainServer {
             }
         }
     }
+   
 }
