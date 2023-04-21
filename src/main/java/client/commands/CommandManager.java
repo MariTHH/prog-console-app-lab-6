@@ -25,9 +25,9 @@ public class CommandManager {
     /**
      * creates a commandMap with commands
      *
-     * @param personCollection
+     * @param
      */
-    public CommandManager(RequestManager requestManager,PersonCollection personCollection) {
+    public CommandManager(RequestManager requestManager) {
         commandMap = new HashMap<>();
         initializeCommand(new Add(requestManager));
         initializeCommand(new AddIfMax(requestManager));

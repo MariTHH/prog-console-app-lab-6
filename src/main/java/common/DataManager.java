@@ -17,14 +17,12 @@ public abstract class DataManager {
     public abstract CommandResult info(Request<?> request);
     public abstract CommandResult help(Request<?> request);
     public abstract CommandResult countEyeColor(Request<?> request);
-
+    public abstract CommandResult filterGreater(Request<?> request);
+    public abstract CommandResult printUniqueLocation(Request<?> request);
+    public abstract CommandResult remove_by_id(Request<?> request);
+    public abstract CommandResult removeGreater(Request<?> request);
+    public abstract CommandResult update(Request<?> request);
     /**
-     public abstract CommandResult filterGreaterThanExpelledStudents(Request<?> request);
-     public abstract CommandResult removeAllByShouldBeExpelled(Request<?> request);
-     public abstract CommandResult removeById(Request<?> request);
-     public abstract CommandResult removeGreater(Request<?> request);
-     public abstract CommandResult removeLower(Request<?> request);
-     public abstract CommandResult update(Request<?> request);
 
      public void save() {}*/
 }

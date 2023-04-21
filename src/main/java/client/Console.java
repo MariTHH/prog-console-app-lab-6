@@ -24,7 +24,7 @@ public class Console {
                 File file = new File(String.valueOf(Path));
                 collection.setCollection(convertToJavaObject(file).getCollection());
                 RequestManager requestManager = new RequestManager();
-                CommandManager commandManager = new CommandManager(requestManager, collection);
+                CommandManager commandManager = new CommandManager(requestManager);
                 commandManager.setFilelink(Path);
                 while (CommandManager.getWork()) {
                     String input;
