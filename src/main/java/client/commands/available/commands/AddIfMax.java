@@ -39,7 +39,7 @@ public class AddIfMax extends Command {
                 System.out.println("Вы неправильно ввели команду");
             } else {
                 PersonCollection personCollection = new PersonCollection();
-                personCollection.loadCollection();
+                //personCollection.loadCollection();
                 if (personCollection.toHeight(Integer.parseInt(args[1]))) {
                     Scanner sc = new Scanner(System.in);
                     Person newPerson = ClientManager.getNewPerson(sc);
@@ -56,7 +56,7 @@ public class AddIfMax extends Command {
                 }
 
             }
-        } catch (ArrayIndexOutOfBoundsException | JAXBException e) {
+        } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Недостаточно аргументов, обратитесь к команде help");
             e.printStackTrace();
         }

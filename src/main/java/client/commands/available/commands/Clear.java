@@ -25,7 +25,7 @@ public class Clear extends Command {
             System.out.println("Вы неправильно ввели команду");
         } else {
             PersonCollection personCollection = new PersonCollection();
-            personCollection.loadCollection();
+            //personCollection.loadCollection();
             Request<?> request = new Request<String>(getName(),null);
             CommandResult result = requestManager.sendRequest(request);
             if (result.status) {

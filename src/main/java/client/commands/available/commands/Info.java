@@ -25,7 +25,7 @@ public class Info extends Command {
             System.out.println("Вы неправильно ввели команду");
         } else {
             PersonCollection personCollection = new PersonCollection();
-            personCollection.loadCollection();
+            //personCollection.loadCollection();
             Request<String> request = new Request<>(getName(), null);
             CommandResult result = requestManager.sendRequest(request);
             if (result.status) {

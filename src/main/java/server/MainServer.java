@@ -1,13 +1,14 @@
 package server;
 
+import client.RequestManager;
+import client.commands.CommandManager;
 import common.Configuration;
 import common.DataManager;
 import common.network.CommandResult;
 import common.network.Request;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import javax.xml.bind.JAXBException;
+import java.io.*;
 import java.net.InetSocketAddress;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
@@ -16,7 +17,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class MainServer {
     private static int port = Configuration.PORT;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws JAXBException {
         if (args.length == 1) {
             try {
                 port = Integer.parseInt(args[0]);
@@ -25,12 +26,12 @@ public class MainServer {
             }
         }
         DataManager dataManager;
-        try {
-            dataManager = new PersonCollection(new Parser());
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            return;
-        }
+        PersonCollection personCollection = new PersonCollection(new Parser());
+        CommandManager commandManager = new CommandManager(new RequestManager());
+        //personCollection.loadCollection();
+        String a = CommandManager.getFilelink();
+        personCollection.setCollection(convertToJavaObject(new File(CommandManager.getFilelink())).getCollection());
+        dataManager = personCollection;
 
         ServerSocketChannel serverSocketChannel;
         try {
@@ -46,11 +47,13 @@ public class MainServer {
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             System.out.println("Выход");
+            save(dataManager);
         }));
 
         Service service = new Service(dataManager);
 
         AtomicBoolean exit = new AtomicBoolean(false);
+        getUserInputHandler(dataManager, exit).start();
 
         while (!exit.get()) {
             try (SocketChannel socketChannel = serverSocketChannel.accept()) {

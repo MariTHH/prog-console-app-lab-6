@@ -22,6 +22,7 @@ public abstract class DataManager {
     public abstract CommandResult remove_by_id(Request<?> request);
     public abstract CommandResult removeGreater(Request<?> request);
     public abstract CommandResult update(Request<?> request);
+    public void save() {}
     /**
 
      public void save() {}*/

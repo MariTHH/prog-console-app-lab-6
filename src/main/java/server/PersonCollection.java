@@ -37,16 +37,20 @@ public class PersonCollection extends DataManager {
         //this.treeSet = treeSet;
         //this.filename = filename;
         this.parser = parser;
-        loadCollection();
+        //loadCollection();
     }
 
     public PersonCollection() {
 
     }
 
-    public void loadCollection() throws JAXBException {
-        treeSet = convertToJavaObject(new File("s")).getCollection();
-    }
+
+    //public void loadCollection() throws JAXBException {
+    //RequestManager requestManager = new RequestManager();
+    //CommandManager commandManager = new CommandManager(requestManager);
+    //String link = CommandManager.getFilelink();
+    //treeSet = parser.convertToJavaObject(new File(CommandManager.getFilelink())).getCollection();
+    //}
 
     /**
      * adds Person
@@ -386,6 +390,48 @@ public class PersonCollection extends DataManager {
         }
     }
 
+    /**
+     * public boolean countGreater(String eyeColor_s) {
+     * try {
+     * String eyeColor = eyeColor_s.trim();
+     * int code = Integer.parseInt(eyeColor);
+     * boolean flag = false;
+     * <p>
+     * for (Color ourColor : Color.values()) {
+     * if (ourColor.getCode() == code) {
+     * countEyeColor(code);
+     * flag = true;
+     * }
+     * }
+     * return flag;
+     * } catch (NumberFormatException e) {
+     * System.out.println("Вы неправильно ввели аргумент команды");
+     * }
+     * }
+     */
+    /**
+     * public CommandResult countGreaterThanEyeColor(Request<?> request) {
+     * countGreaterThanEyeColor1();
+     * return new CommandResult(true, "");
+     * }
+     * <p>
+     * public CommandResult update(Request<?> request) {
+     * String message = null;
+     * try {
+     * int ID = Integer.parseInt((String) request.type);
+     * if (existID(ID)) {
+     * Scanner sc = new Scanner(System.in);
+     * updateElement(ClientManager.getNewPerson(sc), ID);
+     * message = "Персонаж обновлен";
+     * } else {
+     * message = "Такого персонажа нет";
+     * }
+     * } catch (NumberFormatException e) {
+     * System.out.println("ID введен неверно");
+     * }
+     * return new CommandResult(true, message);
+     * }
+     */
     public CommandResult update(Request<?> request) {
         String message = null;
         try {
@@ -427,6 +473,15 @@ public class PersonCollection extends DataManager {
         }
         String countColor = String.valueOf(count);
         return new CommandResult(true, countColor);
+    }
+
+    public void save() {
+        saveCollection(CommandManager.getFilelink());
+    }
+
+    public void saveCollection(String filename) {
+        String sc = filename.trim();
+        parser.convertToXML(this, sc);
     }
 
 

@@ -16,7 +16,7 @@ public final class Parser {
      * @throws JAXBException
      * @throws IOException
      */
-    public static void convertToXML(PersonCollection collection, String Path) throws JAXBException, IOException {
+    public static void convertToXML(PersonCollection collection, String Path) {
         try {
             JAXBContext context = JAXBContext.newInstance(PersonCollection.class);
             Marshaller marshaller = context.createMarshaller();

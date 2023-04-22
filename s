@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <persons>
+    <parser/>
+    <treeSet>
+        <name>a</name>
+        <coordinates>
+            <x>3</x>
+            <y>3</y>
+        </coordinates>
+        <height>3</height>
+        <eyeColor>BLACK</eyeColor>
+        <hairColor>BLACK</hairColor>
+        <nationality>CHINA</nationality>
+        <location>
+            <x>3.0</x>
+            <y>3.0</y>
+            <name>a</name>
+        </location>
+    </treeSet>
     <treeSet>
         <name>artem</name>
         <coordinates>

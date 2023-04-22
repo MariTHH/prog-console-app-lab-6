@@ -25,7 +25,7 @@ public class FilterGreaterThanLocation extends Command {
         } else {
             //personCollection.filterGreater(args[1]);
             PersonCollection personCollection = new PersonCollection();
-            personCollection.loadCollection();
+            //personCollection.loadCollection();
             Request<String> request = new Request<>(getName(), args[1]);
             CommandResult result = requestManager.sendRequest(request);
             if (result.status) {

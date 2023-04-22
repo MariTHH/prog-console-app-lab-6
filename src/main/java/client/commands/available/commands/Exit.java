@@ -12,7 +12,6 @@ public class Exit extends Command {
             System.out.println("Вы неправильно ввели команду");
         } else {
             System.out.println("Удачи");
-            System.exit(0);
 
         }
     }
