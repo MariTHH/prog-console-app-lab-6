@@ -2,6 +2,7 @@ package client;
 
 import client.commands.CommandManager;
 import common.Configuration;
+import common.DataManager;
 import server.PersonCollection;
 
 import javax.xml.bind.JAXBException;

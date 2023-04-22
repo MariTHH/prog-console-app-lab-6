@@ -30,6 +30,7 @@ public class Service {
         commands.put("remove_by_id", dataManager::remove_by_id);
         commands.put("remove_greater", dataManager::removeGreater);
         commands.put("update", dataManager::update);
+
         /**
           */
     }

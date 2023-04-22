@@ -1,6 +1,7 @@
 package server;
 
 import client.ClientManager;
+import client.MainClient;
 import client.RequestManager;
 import client.commands.CommandManager;
 import client.commands.available.commands.Update;
@@ -83,7 +84,7 @@ public class PersonCollection extends DataManager {
                 "\nЦвет глаз: " + person.getEyeColor() +
                 "\nЦвет волос: " + person.getHairColor() +
                 "\nСтрана: " + person.getNationality() +
-                "\nЛокация: " + "X: " + person.getLocation().getX() + " Y: " + person.getLocation().getY() + " Название: " + person.getLocation().getLocationName());
+                "\nЛокация: " + "X: " + person.getLocation().getX() + " Y: " + person.getLocation().getY() + " Название: " + person.getLocation().getLocationName() + "\n");
 
     }
 
@@ -106,10 +107,19 @@ public class PersonCollection extends DataManager {
         if (treeSet.isEmpty()) {
             return "В коллекции ничего нет";
         }
+        String a = "";
         for (Person person : treeSet) {
-            return personInfo(person);
+            a += personInfo(person);
+
         }
-        return "Коллекция выведена";
+        return a;
+        //return "Коллекция выведена";
+    }
+
+    public void ret() {
+        for (Person person : treeSet) {
+            personInfo(person);
+        }
     }
 
     public CommandResult show(Request<?> request) {
@@ -437,9 +447,9 @@ public class PersonCollection extends DataManager {
         try {
             //int ID = Integer.parseInt((String) request.type);
             Person person = (Person) request.type;
-                Update update = new Update(new RequestManager());
-                updateElement(person, Integer.parseInt((String) update.getArgument()));
-                message = "Персонаж обновлен";
+            Update update = new Update(new RequestManager());
+            updateElement(person, Integer.parseInt((String) update.getArgument()));
+            message = "Персонаж обновлен";
         } catch (NumberFormatException e) {
             System.out.println("ID введен неверно");
         }

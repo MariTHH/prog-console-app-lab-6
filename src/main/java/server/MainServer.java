@@ -12,7 +12,10 @@ import java.io.*;
 import java.net.InetSocketAddress;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
+import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicBoolean;
+
+import static server.Parser.convertToJavaObject;
 
 public class MainServer {
     private static int port = Configuration.PORT;
@@ -76,5 +79,35 @@ public class MainServer {
             }
         }
     }
-   
+
+    private static void save(DataManager dataManager) {
+        dataManager.save();
+    }
+
+    private static Thread getUserInputHandler(DataManager dataManager, AtomicBoolean exit) {
+        return new Thread(() -> {
+            Scanner scanner = new Scanner(System.in);
+
+            while (true) {
+                if (scanner.hasNextLine()) {
+                    String serverCommand = scanner.nextLine();
+
+                    switch (serverCommand) {
+                        case "save":
+                            save(dataManager);
+                            break;
+                        case "exit":
+                            exit.set(true);
+                            return;
+                        default:
+                            System.out.println("Такой команды нет.");
+                            break;
+                    }
+                } else {
+                    exit.set(true);
+                    return;
+                }
+            }
+        });
+    }
 }
