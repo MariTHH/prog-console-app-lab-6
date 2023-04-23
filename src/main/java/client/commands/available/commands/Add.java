@@ -4,6 +4,7 @@ import client.*;
 import client.commands.Command;
 import common.data.Person;
 import common.network.*;
+import server.PersonCollection;
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;

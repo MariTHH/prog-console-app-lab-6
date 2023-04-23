@@ -22,7 +22,7 @@ public class Console {
                 Scanner scanner = new Scanner(System.in);
                 String Path = scanner.nextLine();
                 File file = new File(String.valueOf(Path));
-                collection.setCollection(convertToJavaObject(file).getCollection());
+                //collection.setCollection(convertToJavaObject(file).getCollection());
                 RequestManager requestManager = new RequestManager();
                 CommandManager commandManager = new CommandManager(requestManager);
                 commandManager.setFilelink(Path);

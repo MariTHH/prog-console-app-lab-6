@@ -99,7 +99,7 @@ public class CommandManager {
         return commandMap;
     }
 
-    public static String getFilelink() {
+    public String getFilelink() {
         return filelink;
     }
 

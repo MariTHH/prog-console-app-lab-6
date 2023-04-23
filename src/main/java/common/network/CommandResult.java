@@ -10,5 +10,6 @@ public class CommandResult implements Serializable {
         this.status = status;
         this.message = message;
     }
+
 }
 

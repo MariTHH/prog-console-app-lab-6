@@ -4,7 +4,7 @@ import javax.xml.bind.*;
 import java.io.*;
 
 
-public final class Parser {
+public  class Parser {
     public Parser() {
     }
 

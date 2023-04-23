@@ -5,6 +5,7 @@ import client.MainClient;
 import client.RequestManager;
 import client.commands.CommandManager;
 import client.commands.available.commands.Update;
+import common.Configuration;
 import common.DataManager;
 import common.data.Color;
 import common.data.Person;
@@ -26,7 +27,7 @@ import static server.Parser.convertToJavaObject;
         name = "persons"
 )
 @XmlAccessorType(XmlAccessType.FIELD)
-public class PersonCollection extends DataManager {
+public class PersonCollection extends DataManager implements Serializable {
     @XmlElement(name = "Person")
     private String filename;
     private Parser parser;
@@ -36,7 +37,6 @@ public class PersonCollection extends DataManager {
 
     public PersonCollection(Parser parser) throws JAXBException {
         //this.treeSet = treeSet;
-        //this.filename = filename;
         this.parser = parser;
         //loadCollection();
     }
@@ -46,12 +46,12 @@ public class PersonCollection extends DataManager {
     }
 
 
-    //public void loadCollection() throws JAXBException {
-    //RequestManager requestManager = new RequestManager();
-    //CommandManager commandManager = new CommandManager(requestManager);
+    /**public void loadCollection() throws JAXBException {
+    RequestManager requestManager = new RequestManager();
+    CommandManager commandManager = new CommandManager(requestManager);
     //String link = CommandManager.getFilelink();
-    //treeSet = parser.convertToJavaObject(new File(CommandManager.getFilelink())).getCollection();
-    //}
+        treeSet = parser.convertToJavaObject(new File(commandManager.getFilelink())).getCollection();
+    }*/
 
     /**
      * adds Person
@@ -321,7 +321,7 @@ public class PersonCollection extends DataManager {
     /**
      * set collection
      *
-     * @param treeSet
+     * @paramtreeSet
      */
     public void setCollection(TreeSet<Person> treeSet) {
 
@@ -486,7 +486,8 @@ public class PersonCollection extends DataManager {
     }
 
     public void save() {
-        saveCollection(CommandManager.getFilelink());
+        CommandManager commandManager = new CommandManager(new RequestManager());
+        saveCollection(commandManager.getFilelink());
     }
 
     public void saveCollection(String filename) {

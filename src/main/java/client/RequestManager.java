@@ -1,8 +1,10 @@
 package client;
 
+import client.commands.CommandManager;
 import common.Configuration;
 import common.network.Request;
 import common.network.CommandResult;
+import server.PersonCollection;
 
 import java.io.*;
 import java.net.Socket;
@@ -16,6 +18,19 @@ public class RequestManager {
 
     public RequestManager(int port) {
         this.port = port;
+    }
+
+    public PersonCollection sendCollection(Request<?> request) throws IOException, ClassNotFoundException {
+        Socket socket1 = new Socket(Configuration.IP, port);
+
+        OutputStream send = socket1.getOutputStream();
+        ObjectOutputStream objectSend = new ObjectOutputStream(send);
+        objectSend.writeObject(request);
+
+        InputStream receive = socket1.getInputStream();
+        ObjectInputStream objectReceive = new ObjectInputStream(receive);
+        PersonCollection result = (PersonCollection) objectReceive.readObject();
+        return result;
     }
 
     public CommandResult sendRequest(Request<?> request) {
@@ -35,6 +50,7 @@ public class RequestManager {
                 InputStream receive = socket.getInputStream();
                 ObjectInputStream objectReceive = new ObjectInputStream(receive);
                 CommandResult result = (CommandResult) objectReceive.readObject();
+
                 if (attempt != 0) {
                     System.out.println("Подключение установлено");
                 }
