@@ -21,6 +21,7 @@ import static server.Parser.convertToJavaObject;
 
 public class MainClient {
     private static int port = Configuration.PORT;
+    //public static PersonCollection collection;
 
     public static void main(String[] args) throws IOException, JAXBException, ClassNotFoundException {
         if (args.length == 2) {

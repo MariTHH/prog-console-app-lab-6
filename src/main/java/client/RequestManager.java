@@ -10,6 +10,7 @@ import java.io.*;
 import java.net.Socket;
 
 public class RequestManager {
+    //private PersonCollection collection;
     private int port = Configuration.PORT;
     protected final int max_attempts = 5;
 

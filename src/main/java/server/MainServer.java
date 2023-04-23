@@ -37,9 +37,12 @@ public class MainServer {
         //PersonCollection personCollection = new PersonCollection();
         CommandManager commandManager = new CommandManager(new RequestManager());
         //personCollection.loadCollection();
-        String a = CommandManager.getFilelink();
-        personCollection.setCollection(convertToJavaObject(new File(CommandManager.getFilelink())).getCollection());
-        dataManager = personCollection;
+        String a = commandManager.getFilelink();
+        //personCollection.setCollection(convertToJavaObject(new File(CommandManager.getFilelink())).getCollection());
+        //personCollection.getCollection();
+        PersonCollection collection = new PersonCollection();
+        //collection.loadCollection();
+        dataManager = collection;
 
         ServerSocketChannel serverSocketChannel;
 
@@ -70,8 +73,14 @@ public class MainServer {
             try (SocketChannel socketChannel = serverSocketChannel.accept()) {
                 if (socketChannel == null) continue;
 
+                ObjectInputStream objectInputStream1 = new ObjectInputStream(socketChannel.socket().getInputStream());
+                ObjectOutputStream objectOutputStream1 = new ObjectOutputStream(socketChannel.socket().getOutputStream());
                 ObjectInputStream objectInputStream = new ObjectInputStream(socketChannel.socket().getInputStream());
-                Request<?> request = (Request<?>) objectInputStream.readObject();
+                ObjectOutputStream objectOutputStream = new ObjectOutputStream(socketChannel.socket().getOutputStream());
+
+                Request<?> request = (Request<?>) objectInputStream1.readObject();
+                Request<?> request1 = (Request<?>) objectInputStream.readObject();
+
                 System.out.println(socketChannel.getRemoteAddress() + ": " + request.command);
                 CommandResult result = service.executeCommand(request);
                 PersonCollection result1 = request1.personCollection;
