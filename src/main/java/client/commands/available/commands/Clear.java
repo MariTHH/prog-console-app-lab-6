@@ -26,7 +26,7 @@ public class Clear extends Command {
         } else {
             PersonCollection personCollection = new PersonCollection();
             //personCollection.loadCollection();
-            Request<?> request = new Request<String>(getName(),null);
+            Request<?> request = new Request<String>(getName(),null,null);
             CommandResult result = requestManager.sendRequest(request);
             if (result.status) {
                 System.out.println("Коллекция очищена");

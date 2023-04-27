@@ -1,11 +1,8 @@
 package server;
 
-import client.ClientManager;
-import client.MainClient;
 import client.RequestManager;
 import client.commands.CommandManager;
 import client.commands.available.commands.Update;
-import common.Configuration;
 import common.DataManager;
 import common.data.Color;
 import common.data.Person;
@@ -17,7 +14,6 @@ import javax.xml.bind.annotation.*;
 import java.io.*;
 import java.util.*;
 
-import static server.Parser.convertToJavaObject;
 
 
 /**
@@ -114,12 +110,6 @@ public class PersonCollection extends DataManager implements Serializable {
         }
         return a;
         //return "Коллекция выведена";
-    }
-
-    public void ret() {
-        for (Person person : treeSet) {
-            personInfo(person);
-        }
     }
 
     public CommandResult show(Request<?> request) {
@@ -321,7 +311,7 @@ public class PersonCollection extends DataManager implements Serializable {
     /**
      * set collection
      *
-     * @paramtreeSet
+     * @param treeSet
      */
     public void setCollection(TreeSet<Person> treeSet) {
 
@@ -337,24 +327,6 @@ public class PersonCollection extends DataManager implements Serializable {
 
         this.treeSet = treeSet;
     }
-
-    /**
-     * saves collection to file XML
-     *
-     * @throws JAXBException
-     * @throws IOException
-     */
-    /**public void save(String file) throws  IOException {
-     try {
-     String sc = file.trim();
-     Parser.convertToXML(this, sc);
-     } catch (FileNotFoundException e) {
-     System.out.println("Файл для сохранения не найден");
-     } catch (NullPointerException e) {
-     System.out.println("Сохранит в текущий файл");
-     Parser.convertToXML(this, file);
-     }
-     }*/
 
     /**
      * adds a person if he is higher than the other for script
@@ -400,48 +372,6 @@ public class PersonCollection extends DataManager implements Serializable {
         }
     }
 
-    /**
-     * public boolean countGreater(String eyeColor_s) {
-     * try {
-     * String eyeColor = eyeColor_s.trim();
-     * int code = Integer.parseInt(eyeColor);
-     * boolean flag = false;
-     * <p>
-     * for (Color ourColor : Color.values()) {
-     * if (ourColor.getCode() == code) {
-     * countEyeColor(code);
-     * flag = true;
-     * }
-     * }
-     * return flag;
-     * } catch (NumberFormatException e) {
-     * System.out.println("Вы неправильно ввели аргумент команды");
-     * }
-     * }
-     */
-    /**
-     * public CommandResult countGreaterThanEyeColor(Request<?> request) {
-     * countGreaterThanEyeColor1();
-     * return new CommandResult(true, "");
-     * }
-     * <p>
-     * public CommandResult update(Request<?> request) {
-     * String message = null;
-     * try {
-     * int ID = Integer.parseInt((String) request.type);
-     * if (existID(ID)) {
-     * Scanner sc = new Scanner(System.in);
-     * updateElement(ClientManager.getNewPerson(sc), ID);
-     * message = "Персонаж обновлен";
-     * } else {
-     * message = "Такого персонажа нет";
-     * }
-     * } catch (NumberFormatException e) {
-     * System.out.println("ID введен неверно");
-     * }
-     * return new CommandResult(true, message);
-     * }
-     */
     public CommandResult update(Request<?> request) {
         String message = null;
         try {

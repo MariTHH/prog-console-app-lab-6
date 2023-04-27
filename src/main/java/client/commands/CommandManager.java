@@ -2,16 +2,12 @@ package client.commands;
 
 import client.RequestManager;
 import client.commands.available.commands.*;
-import common.network.CommandResult;
-import common.network.Request;
 import server.PersonCollection;
 
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 /**
  * The class is responsible for checking for the correctness of commands and running them

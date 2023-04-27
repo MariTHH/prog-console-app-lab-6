@@ -1,31 +1,25 @@
-
-
 package server;
 
 import client.RequestManager;
 import client.commands.CommandManager;
 import common.Configuration;
 import common.DataManager;
-import common.data.Person;
 import common.network.CommandResult;
 import common.network.Request;
 
 import javax.xml.bind.JAXBException;
 import java.io.*;
 import java.net.InetSocketAddress;
-import java.net.Socket;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.util.Scanner;
-import java.util.TreeSet;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import static server.Parser.convertToJavaObject;
 
 public class MainServer {
     private static int port = Configuration.PORT;
 
-    public static void main(String[] args) throws JAXBException {
+    public static void main(String[] args) throws JAXBException, IOException {
         if (args.length == 1) {
             try {
                 port = Integer.parseInt(args[0]);
@@ -35,9 +29,9 @@ public class MainServer {
         }
         DataManager dataManager;
         //PersonCollection personCollection = new PersonCollection();
-        CommandManager commandManager = new CommandManager(new RequestManager());
+        //CommandManager commandManager = new CommandManager(new RequestManager());
         //personCollection.loadCollection();
-        String a = commandManager.getFilelink();
+        //String a = commandManager.getFilelink();
         //personCollection.setCollection(convertToJavaObject(new File(CommandManager.getFilelink())).getCollection());
         //personCollection.getCollection();
         PersonCollection collection = new PersonCollection();
@@ -58,7 +52,6 @@ public class MainServer {
             return;
         }
 
-
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             System.out.println("Выход");
             save(dataManager);
@@ -72,35 +65,40 @@ public class MainServer {
         while (!exit.get()) {
             try (SocketChannel socketChannel = serverSocketChannel.accept()) {
                 if (socketChannel == null) continue;
+                //
 
-                ObjectInputStream objectInputStream1 = new ObjectInputStream(socketChannel.socket().getInputStream());
-                ObjectOutputStream objectOutputStream1 = new ObjectOutputStream(socketChannel.socket().getOutputStream());
                 ObjectInputStream objectInputStream = new ObjectInputStream(socketChannel.socket().getInputStream());
-                ObjectOutputStream objectOutputStream = new ObjectOutputStream(socketChannel.socket().getOutputStream());
-
-                Request<?> request = (Request<?>) objectInputStream1.readObject();
-                Request<?> request1 = (Request<?>) objectInputStream.readObject();
-
-                System.out.println(socketChannel.getRemoteAddress() + ": " + request.command);
-                CommandResult result = service.executeCommand(request);
-                PersonCollection result1 = request1.personCollection;
+                //Request<PersonCollection> request1 = (Request<PersonCollection>) objectInputStream.readObject();
+                //ObjectOutputStream objectOutputStream = new ObjectOutputStream(socketChannel.socket().getOutputStream());
+                //PersonCollection result1 = request1.personCollection;
+//                objectOutputStream.writeObject(result1);
+                //ObjectInputStream objectInputStream1 = new ObjectInputStream(socketChannel.socket().getInputStream());
                 //ObjectOutputStream objectOutputStream1 = new ObjectOutputStream(socketChannel.socket().getOutputStream());
-                objectOutputStream1.writeObject(result1);
+                Request<?> request = (Request<?>) objectInputStream.readObject();
+                CommandResult commandResult = new CommandResult(true, "");
+                    System.out.println(socketChannel.getRemoteAddress() + ": " + request.command);
+                    CommandResult result = service.executeCommand(request);
+                    ObjectOutputStream objectOutputStream = new ObjectOutputStream(socketChannel.socket().getOutputStream());
 
-                if (result.status)
-                    System.out.println("Команда выполнена успешно");
-                else
-                    System.out.println("Команда выполнена неуспешно");
+                    if (result.status)
+                        System.out.println("Команда выполнена успешно");
+                    else
+                        System.out.println("Команда выполнена неуспешно");
+                    objectOutputStream.writeObject(result);
+                    objectOutputStream.close();
+                    objectInputStream.close();
+                    objectOutputStream.flush();
 
-
-                objectOutputStream.writeObject(result);
 
             } catch (IOException | ClassNotFoundException exception) {
                 exception.printStackTrace();
+
             }
 
         }
+
     }
+
 
     private static void save(DataManager dataManager) {
         dataManager.save();

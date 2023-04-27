@@ -38,7 +38,7 @@ public class Add extends Command {
         } else {
             Scanner sc = new Scanner(System.in);
             Person newPerson = ClientManager.getNewPerson(sc);
-            Request<Person> request = new Request<>(getName(), newPerson);
+            Request<Person> request = new Request<>(getName(), newPerson,null);
             CommandResult result = requestManager.sendRequest(request);
             if (result.status) {
                 System.out.println((result.message));

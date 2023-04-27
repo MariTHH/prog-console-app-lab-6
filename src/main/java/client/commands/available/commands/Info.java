@@ -26,7 +26,7 @@ public class Info extends Command {
         } else {
             PersonCollection personCollection = new PersonCollection();
             //personCollection.loadCollection();
-            Request<String> request = new Request<>(getName(), null);
+            Request<String> request = new Request<>(getName(), null,null);
             CommandResult result = requestManager.sendRequest(request);
             if (result.status) {
                 System.out.println((result.message));

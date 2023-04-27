@@ -35,13 +35,16 @@ public class MainClient {
         RequestManager requestManager = new RequestManager(port);
         Scanner scanner = new Scanner(System.in);
         CommandManager commandManager = new CommandManager(requestManager);
-        PersonCollection collection = new PersonCollection();
-        collection.setCollection(convertToJavaObject(new File(args[1])).getCollection());
-        Request<PersonCollection> request = new Request<>(collection);
-        PersonCollection result = requestManager.sendCollection(request);
         //result.loadCollection();
         System.out.println("Клиент запущен! Порт: " + port);
-        String input;
+        PersonCollection collection = new PersonCollection();
+        if (args.length == 2) {
+            collection.setCollection(convertToJavaObject(new File(args[1])).getCollection());
+            Request<PersonCollection> request = new Request<>(null, collection, collection);
+            PersonCollection result = requestManager.sendCollection(request);
+            result.getCollection();
+        }
+        /**
         String link = args[1];
         File f = new File(link);
 
@@ -53,7 +56,8 @@ public class MainClient {
             //Configuration configuration = new Configuration();
             //configuration.setFilelink(link);
 //                CommandManager.getFilelink();
-        }
+        }*/
+        String input;
         do {
             System.out.println("Введите команду: ");
             if (!scanner.hasNextLine()) return;

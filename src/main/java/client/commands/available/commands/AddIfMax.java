@@ -43,7 +43,7 @@ public class AddIfMax extends Command {
                 if (personCollection.toHeight(Integer.parseInt(args[1]))) {
                     Scanner sc = new Scanner(System.in);
                     Person newPerson = ClientManager.getNewPerson(sc);
-                    Request<Person> request = new Request<>(getName(), newPerson);
+                    Request<Person> request = new Request<>(getName(), newPerson,null);
                     CommandResult result = requestManager.sendRequest(request);
 
                     if (result.status) {

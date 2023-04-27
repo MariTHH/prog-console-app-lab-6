@@ -15,6 +15,7 @@ public class RequestManager {
     protected final int max_attempts = 5;
 
     public RequestManager() {
+
     }
 
     public RequestManager(int port) {
@@ -23,7 +24,6 @@ public class RequestManager {
 
     public PersonCollection sendCollection(Request<?> request) throws IOException, ClassNotFoundException {
         Socket socket1 = new Socket(Configuration.IP, port);
-
         OutputStream send = socket1.getOutputStream();
         ObjectOutputStream objectSend = new ObjectOutputStream(send);
         objectSend.writeObject(request);
@@ -51,6 +51,7 @@ public class RequestManager {
                 InputStream receive = socket.getInputStream();
                 ObjectInputStream objectReceive = new ObjectInputStream(receive);
                 CommandResult result = (CommandResult) objectReceive.readObject();
+                //PersonCollection result1 = (PersonCollection) objectReceive.readObject();
 
                 if (attempt != 0) {
                     System.out.println("Подключение установлено");
@@ -59,6 +60,7 @@ public class RequestManager {
                 return result;
             } catch (IOException | ClassNotFoundException e) {
                 System.out.println("Не удалось подключиться к серверу. Пробуем еще.");
+                e.printStackTrace();
                 attempt++;
                 try {
                     Thread.sleep(6000);
