@@ -14,7 +14,7 @@ public class Request<T>  implements Serializable {
         this.type = type;
         this.personCollection = personCollection;
     }
-    public Request(PersonCollection personCollection){
-        this.personCollection = personCollection;
-    }
+//    public Request(PersonCollection personCollection){
+//        this.personCollection = personCollection;
+//    }
 }

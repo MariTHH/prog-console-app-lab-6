@@ -43,7 +43,7 @@ public class RemoveById extends Command {
         } else if (args.length != 2) {
             System.out.println("Вы неправильно ввели команду");
         } else {
-            Request<String> request = new Request<>(getName(), args[1]);
+            Request<String> request = new Request<>(getName(), args[1], null);
             CommandResult result = requestManager.sendRequest(request);
             if (result.status) {
                 System.out.println((result.message));

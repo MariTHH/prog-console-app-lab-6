@@ -34,7 +34,7 @@ public class Update extends Command {
             for (Person person : personCollection.getCollection()) {
                 if (person.getId() == Integer.parseInt(args[1])) {
                     Person person1 = ClientManager.getNewPerson(new Scanner(System.in));
-                    Request<Person> request = new Request<>(getName(), person1);
+                    Request<Person> request = new Request<>(getName(), person1, null);
                     CommandResult result = requestManager.sendRequest(request);
                     if (result.status) {
                         System.out.println((result.message));

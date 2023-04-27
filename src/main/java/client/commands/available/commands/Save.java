@@ -27,7 +27,7 @@ public class Save extends Command {
         if (args.length != 2) {
             System.out.println("Вы неправильно ввели команду");
         } else {
-            Request<String> request = new Request<>(getName(), null);
+            Request<String> request = new Request<>(getName(), null, null);
             CommandResult result = requestManager.sendRequest(request);
             if (result.status) {
                 System.out.println((result.message));
