@@ -35,8 +35,7 @@ public class ExecuteScript extends Command {
      * if the "add" command, creates an array with the persons characteristics
      *
      * @param args
-     * @throws JAXBException
-     * @throws IOException
+     * args -  command arguments
      */
     @Override
     public void execute(String[] args) throws JAXBException, IOException {

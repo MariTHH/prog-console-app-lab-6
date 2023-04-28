@@ -13,6 +13,9 @@ import java.util.Scanner;
 
 import static server.Parser.convertToJavaObject;
 
+/**
+ * The class starts the client, passes requests to the server
+ */
 public class MainClient {
     private static int port = Configuration.PORT;
 

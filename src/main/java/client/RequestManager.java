@@ -1,6 +1,5 @@
 package client;
 
-import client.commands.CommandManager;
 import common.Configuration;
 import common.network.Request;
 import common.network.CommandResult;
@@ -9,6 +8,9 @@ import server.PersonCollection;
 import java.io.*;
 import java.net.Socket;
 
+/**
+ * The class creates requests for the server
+ */
 public class RequestManager {
     //private PersonCollection collection;
     private int port = Configuration.PORT;
@@ -22,6 +24,12 @@ public class RequestManager {
         this.port = port;
     }
 
+    /**
+     * method sends the collection to the server and gets the result from the server
+     *
+     * @param request request - collection read from file
+     * @return result
+     */
     public PersonCollection sendCollection(Request<?> request) throws IOException, ClassNotFoundException {
         Socket socket1 = new Socket(Configuration.IP, port);
         OutputStream send = socket1.getOutputStream();
@@ -34,6 +42,14 @@ public class RequestManager {
         return result;
     }
 
+    /**
+     * The method gets the command and the arguments that the client entered the console, passes it to the server
+     * for execution, tries to connect for 30 seconds
+     *
+     * @param request
+     * request - command entered by the client and its arguments
+     * @return result
+     */
     public CommandResult sendRequest(Request<?> request) {
         if (request == null) {
             throw new IllegalArgumentException("Запрос является null");

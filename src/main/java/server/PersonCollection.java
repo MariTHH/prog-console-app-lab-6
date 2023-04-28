@@ -15,7 +15,6 @@ import java.io.*;
 import java.util.*;
 
 
-
 /**
  * A class that implements collection related methods
  */
@@ -32,22 +31,13 @@ public class PersonCollection extends DataManager implements Serializable {
     //private final Comparator<Person> sortByName = Comparator.comparing(Person::getName);
 
     public PersonCollection(Parser parser) throws JAXBException {
-        //this.treeSet = treeSet;
         this.parser = parser;
-        //loadCollection();
     }
 
     public PersonCollection() {
 
     }
 
-
-    /**public void loadCollection() throws JAXBException {
-    RequestManager requestManager = new RequestManager();
-    CommandManager commandManager = new CommandManager(requestManager);
-    //String link = CommandManager.getFilelink();
-        treeSet = parser.convertToJavaObject(new File(commandManager.getFilelink())).getCollection();
-    }*/
 
     /**
      * adds Person
@@ -58,9 +48,6 @@ public class PersonCollection extends DataManager implements Serializable {
         treeSet.add(person);
     }
 
-    /**
-     * @return
-     */
     public TreeSet<Person> getCollection() {
         return treeSet;
     }
@@ -103,12 +90,12 @@ public class PersonCollection extends DataManager implements Serializable {
         if (treeSet.isEmpty()) {
             return "В коллекции ничего нет";
         }
-        String a = "";
+        StringBuilder info = new StringBuilder();
         for (Person person : treeSet) {
-            a += personInfo(person);
+            info.append(personInfo(person));
 
         }
-        return a;
+        return info.toString();
         //return "Коллекция выведена";
     }
 

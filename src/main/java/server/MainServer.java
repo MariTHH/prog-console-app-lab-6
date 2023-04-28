@@ -11,7 +11,9 @@ import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-
+/**
+ * The class accepts requests from the client, connects to it, and starts executing commands
+ */
 public class MainServer {
     private static int port = Configuration.PORT;
 
