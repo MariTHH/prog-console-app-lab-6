@@ -9,19 +9,12 @@ import server.PersonCollection;
 
 import javax.xml.bind.JAXBException;
 import java.io.*;
-import java.net.InetSocketAddress;
-import java.net.Socket;
-import java.net.SocketAddress;
-import java.nio.ByteBuffer;
-import java.nio.channels.ServerSocketChannel;
-import java.nio.channels.SocketChannel;
 import java.util.Scanner;
 
 import static server.Parser.convertToJavaObject;
 
 public class MainClient {
     private static int port = Configuration.PORT;
-    //public static PersonCollection collection;
 
     public static void main(String[] args) throws IOException, JAXBException, ClassNotFoundException {
         if (args.length == 2) {
@@ -44,19 +37,6 @@ public class MainClient {
             PersonCollection result = requestManager.sendCollection(request);
             result.getCollection();
         }
-        /**
-        String link = args[1];
-        File f = new File(link);
-
-      //  PersonCollection personCollection = new PersonCollection();
-        if (f.exists() && !f.isDirectory()) {
-            //personCollection.setCollection(convertToJavaObject(f).getCollection());
-            commandManager.setFilelink(link);
-
-            //Configuration configuration = new Configuration();
-            //configuration.setFilelink(link);
-//                CommandManager.getFilelink();
-        }*/
         String input;
         do {
             System.out.println("Введите команду: ");
