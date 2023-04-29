@@ -59,15 +59,14 @@ public class MainServer {
                 Request<PersonCollection> request = (Request<PersonCollection>) objectInputStream.readObject();
                 ObjectOutputStream objectOutputStream = new ObjectOutputStream(socketChannel.socket().getOutputStream());
                 CommandResult result = service.executeCommand(request);
-                PersonCollection result1 = request.personCollection;
-                objectOutputStream.writeObject(result);
+                result.setPersonCollection(request.personCollection);
                 System.out.println(socketChannel.getRemoteAddress() + ": " + request.command);
 
                 if (result.status)
                     System.out.println("Команда выполнена успешно");
                 else
                     System.out.println("Команда выполнена неуспешно");
-                objectOutputStream.writeObject(result1);
+                objectOutputStream.writeObject(result);
 
             } catch (IOException | ClassNotFoundException exception) {
                 exception.printStackTrace();

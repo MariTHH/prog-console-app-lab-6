@@ -38,8 +38,8 @@ public class RequestManager {
 
         InputStream receive = socket1.getInputStream();
         ObjectInputStream objectReceive = new ObjectInputStream(receive);
-        PersonCollection result = (PersonCollection) objectReceive.readObject();
-        return result;
+        CommandResult result = (CommandResult) objectReceive.readObject();
+        return result.getPersonCollection();
     }
 
     /**
