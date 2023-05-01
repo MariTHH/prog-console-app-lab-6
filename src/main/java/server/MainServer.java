@@ -2,9 +2,11 @@ package server;
 
 import common.Configuration;
 import common.DataManager;
+import common.data.Person;
 import common.network.CommandResult;
 import common.network.Request;
 
+import javax.xml.bind.JAXBException;
 import java.io.*;
 import java.net.InetSocketAddress;
 import java.nio.channels.ServerSocketChannel;
@@ -27,6 +29,7 @@ public class MainServer {
         }
         DataManager dataManager;
         PersonCollection collection = new PersonCollection();
+        Person person = new Person();
         dataManager = collection;
 
         ServerSocketChannel serverSocketChannel;
@@ -68,7 +71,7 @@ public class MainServer {
                     System.out.println("Команда выполнена неуспешно");
                 objectOutputStream.writeObject(result);
 
-            } catch (IOException | ClassNotFoundException exception) {
+            } catch (IOException | ClassNotFoundException | JAXBException exception) {
                 exception.printStackTrace();
 
             }
