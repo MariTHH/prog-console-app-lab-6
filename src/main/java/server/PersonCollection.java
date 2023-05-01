@@ -2,6 +2,7 @@ package server;
 
 import client.RequestManager;
 import client.commands.CommandManager;
+import client.commands.available.commands.AddIfMin;
 import client.commands.available.commands.Update;
 import common.DataManager;
 import common.data.Color;
@@ -38,6 +39,14 @@ public class PersonCollection extends DataManager implements Serializable {
 
     }
 
+    public void loadCollection(TreeSet<Person> request) throws JAXBException {
+        RequestManager requestManager = new RequestManager();
+        CommandManager commandManager = new CommandManager(requestManager);
+        //String link = CommandManager.getFilelink();
+        //treeSet.;
+        setCollection(request);
+        //treeSet = result;
+    }
 
     /**
      * adds Person
@@ -106,12 +115,12 @@ public class PersonCollection extends DataManager implements Serializable {
     /**
      * method which compares the characters' height
      *
-     * @param height_int
+     * @param
      * @return true or false
      */
     public boolean toHeight(int height_int) {
         boolean flag = true;
-        for (Person person : treeSet) {
+        for (Person person : getCollection()) {
             if (height_int > person.getHeight()) {
                 flag = true;
             } else {

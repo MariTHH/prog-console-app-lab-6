@@ -5,6 +5,7 @@ import common.network.CommandResult;
 import common.network.Request;
 
 
+import javax.xml.bind.JAXBException;
 import java.util.HashMap;
 
 /**
@@ -47,6 +48,20 @@ public class Service {
     public CommandResult executeCommand(Request<?> request) {
         if (!commands.containsKey(request.command))
             return new CommandResult(false, "Такой команды на сервере нет.");
+        else if (request.command == null && request.personCollection != null) {
+           // personCollection.loadCollection(request.personCollection.getCollection());
+            return new CommandResult(true, "правда");
+        }
+        else if (request.command == null) {
+            //collection.loadCollection(PersonCollection);
+            PersonCollection personCollection = new PersonCollection();
+            if(personCollection.toHeight((int) request.type)) {
+                return new CommandResult(true, "правда");
+            } else {
+                return new CommandResult(false, "неправда");
+            }
+        }
         return commands.get(request.command).execute(request);
+        //return request.personCollection.getCollection();
     }
 }
