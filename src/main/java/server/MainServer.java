@@ -55,22 +55,18 @@ public class MainServer {
         while (!exit.get()) {
             try (SocketChannel socketChannel = serverSocketChannel.accept()) {
                 if (socketChannel == null) continue;
-
                 ObjectInputStream objectInputStream = new ObjectInputStream(socketChannel.socket().getInputStream());
-                Request<PersonCollection> request1 = (Request<PersonCollection>) objectInputStream.readObject();
+                Request<PersonCollection> request = (Request<PersonCollection>) objectInputStream.readObject();
                 ObjectOutputStream objectOutputStream = new ObjectOutputStream(socketChannel.socket().getOutputStream());
-                PersonCollection result1 = request1.personCollection;
-                objectOutputStream.writeObject(result1);
-                Request<?> request = (Request<?>) objectInputStream.readObject();
-                System.out.println(socketChannel.getRemoteAddress() + ": " + request.command);
                 CommandResult result = service.executeCommand(request);
+                result.setPersonCollection(request.personCollection);
+                System.out.println(socketChannel.getRemoteAddress() + ": " + request.command);
 
                 if (result.status)
                     System.out.println("Команда выполнена успешно");
                 else
                     System.out.println("Команда выполнена неуспешно");
                 objectOutputStream.writeObject(result);
-
 
             } catch (IOException | ClassNotFoundException exception) {
                 exception.printStackTrace();
