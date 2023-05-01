@@ -62,7 +62,13 @@ public class MainServer {
                 Request<PersonCollection> request = (Request<PersonCollection>) objectInputStream.readObject();
                 ObjectOutputStream objectOutputStream = new ObjectOutputStream(socketChannel.socket().getOutputStream());
                 CommandResult result = service.executeCommand(request);
-                result.setPersonCollection(request.personCollection);
+               // Person person = new Person();
+                if (request.type == collection || request.type != null && request.personCollection != null) {
+                    result.setPersonCollection(request.personCollection);
+                    collection.loadCollection(request.personCollection.getCollection());
+                }
+                //PersonCollection personCollection = new PersonCollection();
+                //personCollection.loadCollection(result);
                 System.out.println(socketChannel.getRemoteAddress() + ": " + request.command);
 
                 if (result.status)

@@ -1,6 +1,7 @@
 package client.commands.available.commands;
 
 import client.ClientManager;
+import client.MainClient;
 import client.RequestManager;
 import client.commands.Command;
 import common.data.Person;
@@ -21,6 +22,8 @@ public class AddIfMin extends Command {
     public AddIfMin(RequestManager requestManager) {
         super(requestManager);
     }
+
+    public String argument;
 
     /**
      * dd a new element to the collection if its value is less than the smallest element of that collection
@@ -47,8 +50,8 @@ public class AddIfMin extends Command {
                 if (result.status) {
                     Scanner sc = new Scanner(System.in);
                     Person newPerson = ClientManager.getNewPerson(sc);
-                    Request<Person> request = new Request<>(getName(), newPerson,null);
-                    CommandResult result = requestManager.sendRequest(request);
+                    Request<Person> request1 = new Request<>(getName(), newPerson, null);
+                    CommandResult result1 = requestManager.sendRequest(request);
 
                     if (result.status) {
                         System.out.println((result.message));

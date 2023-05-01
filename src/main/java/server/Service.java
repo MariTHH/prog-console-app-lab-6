@@ -13,6 +13,7 @@ import java.util.HashMap;
  */
 public class Service {
     private HashMap<String, Executable> commands = new HashMap<>();
+    private PersonCollection collection;
     private DataManager dataManager;
 
     public Service(DataManager dataManager) {
@@ -45,8 +46,9 @@ public class Service {
      *
      * @param request request - command from client
      */
-    public CommandResult executeCommand(Request<?> request) {
-        if (!commands.containsKey(request.command))
+    public CommandResult executeCommand(Request<?> request) throws JAXBException {
+        if (!commands.containsKey(request.command) && request.command != null  )
+            //request.personCollection.getCollection().size()!=0
             return new CommandResult(false, "Такой команды на сервере нет.");
         else if (request.command == null && request.personCollection != null) {
            // personCollection.loadCollection(request.personCollection.getCollection());

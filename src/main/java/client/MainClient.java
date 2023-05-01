@@ -34,11 +34,14 @@ public class MainClient {
         //result.loadCollection();
         System.out.println("Клиент запущен! Порт: " + port);
         PersonCollection collection = new PersonCollection();
+
         if (args.length == 2) {
             collection.setCollection(convertToJavaObject(new File(args[1])).getCollection());
             Request<PersonCollection> request = new Request<>(null, collection, collection);
             PersonCollection result = requestManager.sendCollection(request);
             result.getCollection();
+            collection.setCollection(result.getCollection());
+            //collection = result;
         }
         String input;
         do {
