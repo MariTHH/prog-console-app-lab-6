@@ -14,7 +14,7 @@ import java.time.ZonedDateTime;
  */
 @XmlRootElement
 public class Person implements Comparable<Person>, Serializable {
-    private final int id;
+    private int id;
     @XmlElement(
             name = "name",
             required = true
@@ -75,6 +75,9 @@ public class Person implements Comparable<Person>, Serializable {
     @XmlTransient
     public int getId() {
         return this.id;
+    }
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     @XmlTransient
