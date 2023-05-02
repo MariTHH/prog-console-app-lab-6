@@ -66,6 +66,7 @@ public class MainServer {
                 if (request.type == collection || request.type != null && request.personCollection != null) {
                     result.setPersonCollection(request.personCollection);
                     collection.loadCollection(request.personCollection.getCollection());
+                    collection.getCollection();
                 }
                 //PersonCollection personCollection = new PersonCollection();
                 //personCollection.loadCollection(result);

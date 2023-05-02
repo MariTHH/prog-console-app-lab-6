@@ -13,7 +13,7 @@ import java.util.HashMap;
  */
 public class Service {
     private HashMap<String, Executable> commands = new HashMap<>();
-    private PersonCollection collection;
+    private PersonCollection collection = new PersonCollection();
     private DataManager dataManager;
 
     public Service(DataManager dataManager) {
@@ -47,23 +47,19 @@ public class Service {
      * @param request request - command from client
      */
     public CommandResult executeCommand(Request<?> request) throws JAXBException {
-        if (!commands.containsKey(request.command) && request.command != null  )
+        if (!commands.containsKey(request.command) && request.command != null)
             //request.personCollection.getCollection().size()!=0
             return new CommandResult(false, "Такой команды на сервере нет.");
         else if (request.command == null && request.personCollection != null) {
-           // personCollection.loadCollection(request.personCollection.getCollection());
+            collection.loadCollection(request.personCollection.getCollection());
             return new CommandResult(true, "правда");
-        }
-        else if (request.command == null) {
-            //collection.loadCollection(PersonCollection);
-            PersonCollection personCollection = new PersonCollection();
-            if(personCollection.toHeight((int) request.type)) {
+        } else if (request.command == null) {
+            if (collection.toHeight((int) request.type) || collection.existID((int) request.type)) {
                 return new CommandResult(true, "правда");
             } else {
                 return new CommandResult(false, "неправда");
             }
         }
         return commands.get(request.command).execute(request);
-        //return request.personCollection.getCollection();
     }
 }

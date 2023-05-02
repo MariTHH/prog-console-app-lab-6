@@ -100,7 +100,7 @@ public class PersonCollection extends DataManager implements Serializable {
             return "В коллекции ничего нет";
         }
         StringBuilder info = new StringBuilder();
-        for (Person person : treeSet) {
+        for (Person person : this.treeSet) {
             info.append(personInfo(person));
 
         }
@@ -120,7 +120,7 @@ public class PersonCollection extends DataManager implements Serializable {
      */
     public boolean toHeight(int height_int) {
         boolean flag = true;
-        for (Person person : getCollection()) {
+        for (Person person : treeSet) {
             if (height_int > person.getHeight()) {
                 flag = true;
             } else {
@@ -374,7 +374,7 @@ public class PersonCollection extends DataManager implements Serializable {
             //int ID = Integer.parseInt((String) request.type);
             Person person = (Person) request.type;
             Update update = new Update(new RequestManager());
-            updateElement(person, Integer.parseInt((String) update.getArgument()));
+            updateElement(person, person.getId());
             message = "Персонаж обновлен";
         } catch (NumberFormatException e) {
             System.out.println("ID введен неверно");

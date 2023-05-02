@@ -38,19 +38,22 @@ public class AddIfMax extends Command {
             if (args.length > 2) {
                 System.out.println("Вы неправильно ввели команду");
             } else {
-                PersonCollection personCollection = new PersonCollection();
                 //personCollection.loadCollection();
-                if (personCollection.toHeight(Integer.parseInt(args[1]))) {
+                //Request<PersonCollection> = new Request<>(getName(), null, PersonCollection)
+                Integer a = Integer.valueOf(args[1]);
+                Request<Integer> request = new Request<>(null, a, null);
+                CommandResult result = requestManager.sendRequest(request);
+                if (result.status) {
                     Scanner sc = new Scanner(System.in);
                     Person newPerson = ClientManager.getNewPerson(sc);
-                    Request<Person> request = new Request<>(getName(), newPerson,null);
-                    CommandResult result = requestManager.sendRequest(request);
+                    Request<Person> request1 = new Request<>(getName(), newPerson, null);
+                    CommandResult result1 = requestManager.sendRequest(request1);
 
-                    if (result.status) {
+                    if (result1.status) {
                         System.out.println((result.message));
                         System.out.println("Ваш персонаж теперь в коллекции");
                     } else
-                        System.out.println("ОШИБКА!");
+                        System.out.println("Ошибка");
                 } else {
                     System.out.println("Ваш персонаж не самый высокий!!");
                 }
@@ -58,7 +61,6 @@ public class AddIfMax extends Command {
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Недостаточно аргументов, обратитесь к команде help");
-            e.printStackTrace();
         }
     }
 
