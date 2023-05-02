@@ -11,6 +11,7 @@ import server.PersonCollection;
 
 import javax.xml.bind.JAXBException;
 import java.util.Scanner;
+import java.util.TreeSet;
 
 
 /**
@@ -44,8 +45,8 @@ public class AddIfMin extends Command {
             } else {
                 //personCollection.loadCollection();
                 //Request<PersonCollection> = new Request<>(getName(), null, PersonCollection)
-                Integer a = Integer.valueOf(args[1]);
-                Request<Integer> request = new Request<>(null, a, null);
+                Integer height = Integer.valueOf(args[1]);
+                Request<Integer> request = new Request<>(null, height, null);
                 CommandResult result = requestManager.sendRequest(request);
                 if (!result.status) {
                     Scanner sc = new Scanner(System.in);
