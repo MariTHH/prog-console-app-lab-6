@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
+import java.util.Objects;
 
 /**
  * A class with a character constructor
@@ -160,6 +161,16 @@ public class Person implements Comparable<Person>, Serializable {
      */
     public int compareTo(Person personName) {
         return name.compareTo(personName.name);
+    }
+    public void update(Person person) {
+        this.name = person.name;
+        this.coordinates = person.coordinates;
+        this.creationDate = person.creationDate;
+        this.hairColor = person.hairColor;
+        this.eyeColor = person.eyeColor;
+        this.location = person.location;
+        this.nationality = person.nationality;
+        this.height = person.height;
     }
 }
 

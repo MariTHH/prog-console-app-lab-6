@@ -2,8 +2,6 @@ package server;
 
 import client.RequestManager;
 import client.commands.CommandManager;
-import client.commands.available.commands.AddIfMin;
-import client.commands.available.commands.Update;
 import common.DataManager;
 import common.data.Color;
 import common.data.Person;
@@ -166,66 +164,22 @@ public class PersonCollection extends DataManager implements Serializable {
         return false;
     }
 
-    /**
-     * removes person
-     *
-     * @param ID
-     */
-    public void removePerson(int ID) {
-        for (Person person : treeSet) {
-            if (existID(ID)) {
-                treeSet.remove(person);
-                break;
-            }
-        }
-    }
 
     public CommandResult remove_by_id(Request<?> request) {
         String message = null;
+        int ID;
         try {
-            int ID = Integer.parseInt((String) request.type);
-            if (existID(ID)) {
-                removePerson(ID);
-                message = "Персонаж удален";
-            } else {
-                message = "Этого персонажа не существует";
-            }
+            ID = Integer.parseInt((String) request.type);
+            if (treeSet.stream().noneMatch(person -> person.getId() == (ID)))
+                return new CommandResult(false, "Персонажа с таким ID не существует");
+            treeSet.removeIf(person -> person.getId() == (ID));
+            return new CommandResult(true, "Персонаж успешно удален");
         } catch (NumberFormatException e) {
             message = "Вы неправильно ввели ID";
         }
         return new CommandResult(true, message);
     }
 
-    /**
-     * updates data of person, ID stays the same
-     *
-     * @param newPerson
-     * @param ID
-     */
-    public void updateElement(Person newPerson, int ID) {
-        for (Person person : treeSet) {
-            if (person.getId() == ID) {
-                person.setName(newPerson.getName());
-                person.setCoordinates(newPerson.getCoordinates());
-                person.setCreationDate(newPerson.getCreationDate());
-                person.setHeight(newPerson.getHeight());
-                person.setEyeColor(newPerson.getEyeColor());
-                person.setHairColor(newPerson.getHairColor());
-                person.setNationality(newPerson.getNationality());
-                person.setLocation(newPerson.getLocation());
-            }
-        }
-    }
-
-    public CommandResult update1(Request<?> request) {
-        String message = null;
-        //int ID = Integer.parseInt((String) request.type);
-        Person person = (Person) request.type;
-        Update update = new Update(new RequestManager());
-        updateElement(person, Integer.parseInt((String) update.getArgument()));
-        message = "Персонаж обновлен";
-        return new CommandResult(true, message);
-    }
 
     /**
      * removes the highest person
@@ -243,7 +197,7 @@ public class PersonCollection extends DataManager implements Serializable {
                 message = "Рост не может быть меньше нуля";
             }
         } catch (NumberFormatException e) {
-            System.out.println("Рост введен некорректно(значение больше 2 147 483 647)");
+            System.out.println("Рост введен некорректно");
         }
         return new CommandResult(true, message);
     }
@@ -324,61 +278,29 @@ public class PersonCollection extends DataManager implements Serializable {
         this.treeSet = treeSet;
     }
 
-    /**
-     * adds a person if he is higher than the other for script
-     *
-     * @param sc
-     */
-    public boolean addIfMaxForScript(String sc) {
-        String height_s = sc.trim();
-        int height_int = Integer.parseInt(height_s);
-        boolean flag = false;
-        for (Person person1 : treeSet) {
-            flag = height_int > person1.getHeight();
-
-        }
-        if (flag) {
-            System.out.println("Самый высокий персонаж добавлен");
-            return true;
-        } else {
-            System.out.println("Персонаж не выше всех");
-            return false;
-        }
-    }
-
-    /**
-     * adds a person if he is lower than the other
-     *
-     * @param sc
-     */
-    public boolean addIfMinForScript(String sc) {
-        String height_s = sc.trim();
-        int height_int = Integer.parseInt(height_s);
-        boolean flag = false;
-        for (Person person1 : treeSet) {
-            flag = height_int < person1.getHeight();
-
-        }
-        if (flag) {
-            System.out.println("Самый низкий персонаж добавлен");
-            return true;
-        } else {
-            System.out.println("Персонаж не ниже всех");
-            return false;
-        }
-    }
 
     public CommandResult update(Request<?> request) {
         String message = null;
         try {
             Person person = (Person) request.type;
-            Update update = new Update(new RequestManager());
-            updateElement(person, person.getId());
-            message = "Персонаж обновлен";
+            if (getById(person.getId()) == null) {
+                return new CommandResult(false, "Персонажа с таким ID не существует");
+            }
+            treeSet.stream()
+                    .filter(person1 -> person1.getId() == person.getId())
+                    .forEach(person1 -> person1.update(person));
+            return new CommandResult(true, "Персонаж успешно обновлен");
         } catch (NumberFormatException e) {
             System.out.println("ID введен неверно");
         }
         return new CommandResult(true, message);
+    }
+
+    public Person getById(Integer id) {
+        return treeSet.stream()
+                .filter(person -> person.getId() == id)
+                .findFirst()
+                .orElse(null);
     }
 
     public boolean countGreater2(int eyeColor_int) {
@@ -411,12 +333,11 @@ public class PersonCollection extends DataManager implements Serializable {
     }
 
     public void save() {
-        CommandManager commandManager = new CommandManager(new RequestManager());
-        saveCollection(commandManager.getFilelink());
+        saveCollection();
     }
 
-    public void saveCollection(String filename) {
-        String sc = filename.trim();
+    public void saveCollection() {
+        String sc = "naa";
         parser.convertToXML(this, sc);
     }
 
