@@ -1,5 +1,6 @@
 package common.network;
 
+import common.data.Person;
 import server.PersonCollection;
 
 import java.io.Serializable;

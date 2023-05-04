@@ -39,6 +39,7 @@ public class CommandManager {
         initializeCommand(new RemoveById(requestManager));
         initializeCommand(new RemoveGreater(requestManager));
         initializeCommand(new Update(requestManager));
+        initializeCommand(new ExecuteScript(personCollection));
         /**
         initializeCommand(new Save(requestManager,personCollection));
         initializeCommand(new ExecuteScript(requestManager,personCollection));*/

@@ -88,6 +88,7 @@ public class ExecuteScript extends Command {
                             personList.add(commandList.get(i + j));
                         }
                         commandMap.get(commandAndArgument[0]).execute(commandAndArgument);
+                        personList.clear();
                         i += 10;
                     }
 

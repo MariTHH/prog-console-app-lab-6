@@ -22,18 +22,28 @@ public class Update extends Command {
 
     @Override
     public void execute(String[] args) throws JAXBException {
-        //if (ExecuteScript.getFlag()) {
-        //updateForScript();
-//        } else
-        if (args.length != 2) {
+        int id = 0;
+        Person person1;
+        if (args.length > 2) {
             System.out.println("Вы неправильно ввели команду");
         } else {
-            Integer id = Integer.valueOf(args[1]);
+            if (ExecuteScript.getFlag()) {
+                Scanner scanner = new Scanner(System.in);
+                System.out.println("Введите ID");
+                id = Integer.parseInt(scanner.nextLine());
+            } else {
+                id = Integer.parseInt(args[1]);
+            }
             Request<Integer> request = new Request<>(null, id, null);
             CommandResult result = requestManager.sendRequest(request);
             if (result.status) {
-                Person person1 = ClientManager.getNewPerson(new Scanner(System.in));
-                person1.setId(Integer.valueOf(args[1]));
+                if (!ExecuteScript.getFlag()) {
+                    person1 = ClientManager.getNewPerson(new Scanner(System.in));
+                    person1.setId(id);
+                } else{
+                    person1 = ClientManager.createPersonFromScript(ExecuteScript.getPersonList());
+                    person1.setId(id);
+                }
                 Request<Person> request1 = new Request<>(getName(), person1, null);
                 CommandResult result1 = requestManager.sendRequest(request1);
                 if (result1.status) {
@@ -41,28 +51,9 @@ public class Update extends Command {
                 } else
                     System.out.println("Ошибка");
             }
-
         }
     }
 
-
-    /**
-     * public void updateForScript() {
-     * try {
-     * System.out.println("Введите ID для команды update");
-     * Scanner scanner = new Scanner(System.in);
-     * int line = Integer.parseInt(scanner.nextLine().trim());
-     * if (personCollection.existID(line)) {
-     * System.out.println("Персонаж обновлен");
-     * personCollection.updateElement(ClientManager.createPersonFromScript(ExecuteScript.getPersonList()), line);
-     * } else {
-     * System.out.println("Человека с таким ID не существует");
-     * }
-     * } catch (IllegalArgumentException e) {
-     * System.out.println("jd");
-     * }
-     * }
-     */
 
     @Override
     public String getName() {

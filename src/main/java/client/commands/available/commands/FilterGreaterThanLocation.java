@@ -23,9 +23,6 @@ public class FilterGreaterThanLocation extends Command {
         if (args.length != 2) {
             System.out.println("Вы неправильно ввели команду");
         } else {
-            //personCollection.filterGreater(args[1]);
-            PersonCollection personCollection = new PersonCollection();
-            //personCollection.loadCollection();
             Request<String> request = new Request<>(getName(), args[1],null);
             CommandResult result = requestManager.sendRequest(request);
             if (result.status) {

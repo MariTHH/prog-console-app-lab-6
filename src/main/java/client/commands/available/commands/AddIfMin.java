@@ -33,24 +33,26 @@ public class AddIfMin extends Command {
      */
     @Override
     public void execute(String[] args) {
+        int height = 0;
+        Person newPerson;
         try {
-            //if (ExecuteScript.getFlag()) {
-            //if (PersonCollection.addIfMaxForScript(args[1])) {
-            //ExecuteScript.getPersonList().set(6, args[1]);
-            //PersonCollection.addPerson(ClientManager.createPersonFromScript(ExecuteScript.getPersonList()));
-            //}
-            //}
             if (args.length > 2) {
                 System.out.println("Вы неправильно ввели команду");
             } else {
-                //personCollection.loadCollection();
-                //Request<PersonCollection> = new Request<>(getName(), null, PersonCollection)
-                Integer height = Integer.valueOf(args[1]);
+                if (ExecuteScript.getFlag()) {
+                    height = Integer.parseInt(args[1]);
+                } else {
+                    height = Integer.parseInt(args[1]);
+                }
                 Request<Integer> request = new Request<>(null, height, null);
                 CommandResult result = requestManager.sendRequest(request);
-                if (!result.status) {
-                    Scanner sc = new Scanner(System.in);
-                    Person newPerson = ClientManager.getNewPerson(sc);
+                if (result.status) {
+                    if (ExecuteScript.getFlag()) {
+                        ExecuteScript.getPersonList().set(6, args[1]);
+                        newPerson = ClientManager.createPersonFromScript(ExecuteScript.getPersonList());
+                    } else {
+                        newPerson = ClientManager.getNewPerson(new Scanner(System.in));
+                    }
                     Request<Person> request1 = new Request<>(getName(), newPerson, null);
                     CommandResult result1 = requestManager.sendRequest(request1);
 
@@ -62,7 +64,6 @@ public class AddIfMin extends Command {
                 } else {
                     System.out.println("Ваш персонаж не самый низкий!!");
                 }
-
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Недостаточно аргументов, обратитесь к команде help");
