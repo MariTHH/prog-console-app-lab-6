@@ -371,7 +371,6 @@ public class PersonCollection extends DataManager implements Serializable {
     public CommandResult update(Request<?> request) {
         String message = null;
         try {
-            //int ID = Integer.parseInt((String) request.type);
             Person person = (Person) request.type;
             Update update = new Update(new RequestManager());
             updateElement(person, person.getId());

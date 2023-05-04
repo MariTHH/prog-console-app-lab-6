@@ -14,7 +14,6 @@ import java.io.EOFException;
  * Command show. Output to the standard output stream all elements of the collection in string representation
  */
 public class Show extends Command {
-    // private PersonCollection personCollection;
 
     public Show(RequestManager requestManager) {
         super(requestManager);
@@ -26,8 +25,6 @@ public class Show extends Command {
         if (args.length > 1) {
             System.out.println("Вы неправильно ввели команду");
         } else {
-            PersonCollection personCollection = new PersonCollection();
-            //personCollection.loadCollection();
             Request<String> request = new Request<>(getName(), null, null);
             CommandResult result = requestManager.sendRequest(request);
             if (result.status) {

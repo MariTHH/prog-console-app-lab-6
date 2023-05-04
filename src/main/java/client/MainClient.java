@@ -31,7 +31,6 @@ public class MainClient {
         RequestManager requestManager = new RequestManager(port);
         Scanner scanner = new Scanner(System.in);
         CommandManager commandManager = new CommandManager(requestManager);
-        //result.loadCollection();
         System.out.println("Клиент запущен! Порт: " + port);
         PersonCollection collection = new PersonCollection();
 
@@ -41,7 +40,6 @@ public class MainClient {
             PersonCollection result = requestManager.sendCollection(request);
             result.getCollection();
             collection.setCollection(result.getCollection());
-            //collection = result;
         }
         String input;
         do {

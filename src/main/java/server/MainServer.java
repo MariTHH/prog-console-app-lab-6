@@ -68,8 +68,6 @@ public class MainServer {
                     collection.loadCollection(request.personCollection.getCollection());
                     collection.getCollection();
                 }
-                //PersonCollection personCollection = new PersonCollection();
-                //personCollection.loadCollection(result);
                 System.out.println(socketChannel.getRemoteAddress() + ": " + request.command);
 
                 if (result.status)

@@ -24,8 +24,6 @@ public class AddIfMin extends Command {
         super(requestManager);
     }
 
-    public String argument;
-
     /**
      * dd a new element to the collection if its value is less than the smallest element of that collection
      *
