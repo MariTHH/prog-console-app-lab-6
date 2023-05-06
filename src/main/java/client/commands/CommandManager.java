@@ -8,6 +8,7 @@ import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * The class is responsible for checking for the correctness of commands and running them
@@ -31,7 +32,7 @@ public class CommandManager {
         initializeCommand(new Show(requestManager));
         initializeCommand(new Clear(requestManager));
         initializeCommand(new Info(requestManager));
-        initializeCommand(new Exit());
+        initializeCommand(new Exit(requestManager));
         initializeCommand(new Help(requestManager));
         initializeCommand(new CountGreaterThanEyeColor(requestManager));
         initializeCommand(new FilterGreaterThanLocation(requestManager));
@@ -79,7 +80,9 @@ public class CommandManager {
         } catch (NoSuchElementException e) {
             System.out.println("Команда введена неверно");
             isWorking = false;
-            System.exit(0);
+            //System.exit(0);
+            AtomicBoolean atomicBoolean = new AtomicBoolean(false);
+            atomicBoolean.set(true);
         } catch (JAXBException | IOException e) {
             System.out.println("Файл не найден");
         }
