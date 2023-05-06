@@ -11,6 +11,7 @@ import java.io.*;
 import java.net.InetSocketAddress;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
+import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -48,12 +49,13 @@ public class MainServer {
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             System.out.println("Выход");
-            save(dataManager);
+            save(dataManager,"s");
         }));
 
         Service service = new Service(dataManager);
 
         AtomicBoolean exit = new AtomicBoolean(false);
+        getUserInputHandler(dataManager, exit).start();
 
         while (!exit.get()) {
             try (SocketChannel socketChannel = serverSocketChannel.accept()) {
@@ -76,18 +78,44 @@ public class MainServer {
                     System.out.println("Команда выполнена неуспешно");
                 objectOutputStream.writeObject(result);
 
-            } catch (IOException | ClassNotFoundException | JAXBException exception) {
-                exception.printStackTrace();
+            } catch (IOException | ClassNotFoundException | JAXBException e) {
+                System.out.println("Что-то пошло не так..");
 
             }
 
         }
 
     }
+    private static Thread getUserInputHandler(DataManager dataManager, AtomicBoolean exit){
+        return new Thread(() -> {
+            Scanner scanner = new Scanner(System.in);
+
+            while (true){
+                if(scanner.hasNextLine()){
+                    String serverCommand = scanner.nextLine();
+                    if (serverCommand.contains("save")){
+                        serverCommand = serverCommand.split(" ")[1];
+                        save(dataManager, String.valueOf(serverCommand));
+                        return;
+                    }
+                    if (serverCommand.equals("exit")){
+                        exit.set(true);
+                        return;
+                    }
+                    else {
+                        System.out.println("Такой команды нет");
+                    }
+                }
+                else{
+                    exit.set(true);
+                }
+            }
+        });
+    }
 
 
-    private static void save(DataManager dataManager) {
-        dataManager.save();
+    private static void save(DataManager dataManager,String filename) {
+        dataManager.save(filename);
     }
 
 }
