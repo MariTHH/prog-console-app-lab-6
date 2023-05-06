@@ -2,8 +2,6 @@ package client;
 
 import client.commands.CommandManager;
 import common.Configuration;
-import common.data.Person;
-import common.network.CommandResult;
 import common.network.Request;
 import server.PersonCollection;
 
