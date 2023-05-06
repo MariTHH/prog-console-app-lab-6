@@ -36,7 +36,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>Main</mainClass>
+                            <mainClass>server.MainServer</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
