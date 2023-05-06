@@ -11,7 +11,9 @@ import common.network.Request;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.*;
 import java.io.*;
+import java.net.URI;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 
 /**
@@ -332,15 +334,19 @@ public class PersonCollection extends DataManager implements Serializable {
         return new CommandResult(true, countColor);
     }
 
-    public void save() {
-        saveCollection();
+    public void save(String filename) {
+        saveCollection(filename);
     }
 
-    public void saveCollection() {
-        String sc = "naa";
-        parser.convertToXML(this, sc);
+    public void saveCollection(String filename) {
+        parser.convertToXML(this, filename);
+        System.out.println("Коллекция сохранена");
     }
 
-
+    public CommandResult exit(Request<?> request){
+        AtomicBoolean atomicBoolean = new AtomicBoolean(false);
+        atomicBoolean.set(true);
+        return new CommandResult(true,"Удачи");
+    }
 }
 
