@@ -2,13 +2,10 @@ package client.commands.available.commands;
 
 import client.RequestManager;
 import client.commands.Command;
-import common.data.Person;
 import common.network.CommandResult;
 import common.network.Request;
-import server.PersonCollection;
 
 import javax.xml.bind.JAXBException;
-import java.io.EOFException;
 
 /**
  * Command show. Output to the standard output stream all elements of the collection in string representation
@@ -20,8 +17,11 @@ public class Show extends Command {
 
     }
 
+    /**
+     * send a request with the show command
+     */
     @Override
-    public void execute(String[] args) throws JAXBException {
+    public void execute(String[] args) {
         if (args.length > 1) {
             System.out.println("Вы неправильно ввели команду");
         } else {

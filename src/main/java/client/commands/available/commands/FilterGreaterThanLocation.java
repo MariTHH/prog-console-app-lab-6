@@ -4,7 +4,6 @@ import client.RequestManager;
 import client.commands.Command;
 import common.network.CommandResult;
 import common.network.Request;
-import server.PersonCollection;
 
 import javax.xml.bind.JAXBException;
 
@@ -18,12 +17,17 @@ public class FilterGreaterThanLocation extends Command {
         super(requestManager);
     }
 
+    /**
+     * send command and coordinate x to server
+     *
+     * @param args - coordinate x
+     */
     @Override
-    public void execute(String[] args) throws JAXBException {
+    public void execute(String[] args) {
         if (args.length != 2) {
             System.out.println("Вы неправильно ввели команду");
         } else {
-            Request<String> request = new Request<>(getName(), args[1],null);
+            Request<String> request = new Request<>(getName(), args[1], null);
             CommandResult result = requestManager.sendRequest(request);
             if (result.status) {
                 System.out.println((result.message));

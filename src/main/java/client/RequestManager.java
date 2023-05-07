@@ -12,7 +12,6 @@ import java.net.Socket;
  * The class creates requests for the server
  */
 public class RequestManager {
-    //private PersonCollection collection;
     private int port = Configuration.PORT;
     protected final int max_attempts = 5;
 
@@ -46,8 +45,7 @@ public class RequestManager {
      * The method gets the command and the arguments that the client entered the console, passes it to the server
      * for execution, tries to connect for 30 seconds
      *
-     * @param request
-     * request - command entered by the client and its arguments
+     * @param request request - command entered by the client and its arguments
      * @return result
      */
     public CommandResult sendRequest(Request<?> request) {
@@ -67,7 +65,6 @@ public class RequestManager {
                 InputStream receive = socket.getInputStream();
                 ObjectInputStream objectReceive = new ObjectInputStream(receive);
                 CommandResult result = (CommandResult) objectReceive.readObject();
-                //PersonCollection result1 = (PersonCollection) objectReceive.readObject();
 
                 if (attempt != 0) {
                     System.out.println("Подключение установлено");
@@ -76,7 +73,6 @@ public class RequestManager {
                 return result;
             } catch (IOException | ClassNotFoundException e) {
                 System.out.println("Не удалось подключиться к серверу. Пробуем еще.");
-                e.printStackTrace();
                 attempt++;
                 try {
                     Thread.sleep(6000);

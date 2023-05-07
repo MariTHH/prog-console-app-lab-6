@@ -25,13 +25,12 @@ public class Add extends Command {
 
     /**
      * add a new element to the collection
-     *
-     * @param args
      */
     @Override
-    public void execute(String[] args) throws FileNotFoundException {
-        if (ExecuteScript.getFlag()) {
-            Scanner sc = new Scanner(System.in);
+    public void execute(String[] args) {
+        if (args.length > 1) {
+            System.out.println("Вы неправильно ввели команду");
+        } else if (ExecuteScript.getFlag()) {
             Person newPerson = ClientManager.createPersonFromScript(ExecuteScript.getPersonList());
             Request<Person> request = new Request<>(getName(), newPerson, null);
             CommandResult result = requestManager.sendRequest(request);
@@ -40,11 +39,7 @@ public class Add extends Command {
                 System.out.println("Ваш персонаж теперь в коллекции");
             } else
                 System.out.println("Ошибка");
-            //personCollection.addPerson(ClientManager.createPersonFromScript(ExecuteScript.getPersonList()));
-        }
-        if (args.length > 1) {
-            System.out.println("Вы неправильно ввели команду");
-        } else if(!ExecuteScript.getFlag()){
+        } else {
             Scanner sc = new Scanner(System.in);
             Person newPerson = ClientManager.getNewPerson(sc);
             Request<Person> request = new Request<>(getName(), newPerson, null);

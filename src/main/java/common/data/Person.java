@@ -8,7 +8,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
-import java.util.Objects;
 
 /**
  * A class with a character constructor

@@ -20,6 +20,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class MainServer {
     private static int port = Configuration.PORT;
 
+    /**
+     * Start server, connect to the client and get requests with a collection and commands, execute them
+     * @param args - port
+     */
     public static void main(String[] args) {
         if (args.length == 1) {
             try {
@@ -49,7 +53,7 @@ public class MainServer {
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             System.out.println("Выход");
-            save(dataManager,"s");
+            save(dataManager, "s");
         }));
 
         Service service = new Service(dataManager);
@@ -85,35 +89,46 @@ public class MainServer {
         }
 
     }
-    private static Thread getUserInputHandler(DataManager dataManager, AtomicBoolean exit){
+
+    /**
+     * Running two commands on the server
+     * save and exit
+     *
+     * @param dataManager - class with commands
+     * @param exit        - command exit
+     * @return
+     */
+    private static Thread getUserInputHandler(DataManager dataManager, AtomicBoolean exit) {
         return new Thread(() -> {
             Scanner scanner = new Scanner(System.in);
 
-            while (true){
-                if(scanner.hasNextLine()){
+            while (true) {
+                if (scanner.hasNextLine()) {
                     String serverCommand = scanner.nextLine();
-                    if (serverCommand.contains("save")){
+                    if (serverCommand.contains("save")) {
                         serverCommand = serverCommand.split(" ")[1];
                         save(dataManager, String.valueOf(serverCommand));
                         return;
                     }
-                    if (serverCommand.equals("exit")){
+                    if (serverCommand.equals("exit")) {
                         exit.set(true);
                         return;
-                    }
-                    else {
+                    } else {
                         System.out.println("Такой команды нет");
                     }
-                }
-                else{
+                } else {
                     exit.set(true);
                 }
             }
         });
     }
 
-
-    private static void save(DataManager dataManager,String filename) {
+    /**
+     * save collection to file
+     *
+     * @param filename - file in which server load collection, s - default
+     */
+    private static void save(DataManager dataManager, String filename) {
         dataManager.save(filename);
     }
 

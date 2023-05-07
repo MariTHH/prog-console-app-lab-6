@@ -4,9 +4,6 @@ import client.RequestManager;
 import client.commands.Command;
 import common.network.CommandResult;
 import common.network.Request;
-import server.PersonCollection;
-
-import javax.xml.bind.JAXBException;
 
 
 /**
@@ -18,8 +15,13 @@ public class RemoveGreater extends Command {
         super(requestManager);
     }
 
+    /**
+     * send a request with a command and height to the server
+     *
+     * @param args - height
+     */
     @Override
-    public void execute(String[] args) throws JAXBException {
+    public void execute(String[] args) {
         if (args.length != 2) {
             System.out.println("Вы неправильно ввели команду");
         } else {

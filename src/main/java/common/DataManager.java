@@ -3,6 +3,9 @@ package common;
 import common.network.CommandResult;
 import common.network.Request;
 
+/**
+ * abstract class with commands
+ */
 public abstract class DataManager {
     public abstract CommandResult add(Request<?> request);
 

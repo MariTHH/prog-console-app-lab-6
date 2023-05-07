@@ -14,16 +14,14 @@ public abstract class Command {
 
     /**
      * execute for every command
-     *
-     * @param args
-     * @throws JAXBException
-     * @throws IOException
-     * @throws FileNotFoundException
      */
-    public abstract void execute(String[] args) throws JAXBException, IOException, FileNotFoundException;
+    public abstract void execute(String[] args);
+
     protected RequestManager requestManager;
 
-    public Command() {}
+    public Command() {
+    }
+
     public Command(RequestManager requestManager) {
         this.requestManager = requestManager;
     }
@@ -35,7 +33,9 @@ public abstract class Command {
     public void setArgument(Object argument) {
         this.argument = argument;
     }
+
     public abstract String getName();
+
     public abstract String getDescription();
 
 }

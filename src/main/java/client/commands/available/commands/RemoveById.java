@@ -2,10 +2,8 @@ package client.commands.available.commands;
 
 import client.RequestManager;
 import client.commands.Command;
-import common.data.Person;
 import common.network.CommandResult;
 import common.network.Request;
-import server.PersonCollection;
 
 import javax.xml.bind.JAXBException;
 import java.util.Scanner;
@@ -19,9 +17,15 @@ public class RemoveById extends Command {
         super(requestManager);
     }
 
-
+    /**
+     * If the command is in the script, then the id is asked to enter
+     * if not, the id argument
+     * send the id and the command
+     *
+     * @param args - id
+     */
     @Override
-    public void execute(String[] args) throws JAXBException {
+    public void execute(String[] args) {
         String id;
         if (args.length > 2) {
             System.out.println("Вы неправильно ввели команду");

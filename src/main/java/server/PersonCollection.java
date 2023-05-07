@@ -3,7 +3,6 @@ package server;
 import client.RequestManager;
 import client.commands.CommandManager;
 import common.DataManager;
-import common.data.Color;
 import common.data.Person;
 import common.network.CommandResult;
 import common.network.Request;
@@ -11,7 +10,6 @@ import common.network.Request;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.*;
 import java.io.*;
-import java.net.URI;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -25,11 +23,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class PersonCollection extends DataManager implements Serializable {
     @XmlElement(name = "Person")
-    private String filename;
     private Parser parser;
     private TreeSet<Person> treeSet = new TreeSet<>();
     private static Date creationDate = new Date();
-    //private final Comparator<Person> sortByName = Comparator.comparing(Person::getName);
 
     public PersonCollection(Parser parser) throws JAXBException {
         this.parser = parser;
@@ -39,19 +35,19 @@ public class PersonCollection extends DataManager implements Serializable {
 
     }
 
+    /**
+     * upload the collection to the server
+     *
+     * @param request - collection
+     */
     public void loadCollection(TreeSet<Person> request) throws JAXBException {
-        RequestManager requestManager = new RequestManager();
-        CommandManager commandManager = new CommandManager(requestManager);
-        //String link = CommandManager.getFilelink();
-        //treeSet.;
         setCollection(request);
-        //treeSet = result;
     }
 
     /**
      * adds Person
      *
-     * @param person
+     * @param person from client
      */
     public void addPerson(Person person) {
         treeSet.add(person);
@@ -64,8 +60,7 @@ public class PersonCollection extends DataManager implements Serializable {
     /**
      * displays information about the character with all fields
      *
-     * @param person
-     * @return
+     * @param person from client
      */
     public String personInfo(Person person) {
         return ("ID: " + person.getId() +
@@ -80,10 +75,14 @@ public class PersonCollection extends DataManager implements Serializable {
 
     }
 
+    /**
+     * add person to collection
+     *
+     * @param request - person from client
+     */
     public CommandResult add(Request<?> request) {
         try {
             Person person = (Person) request.type;
-            //person.setId(generateNextId());
             treeSet.add(person);
             return new CommandResult(true, "Новый элемент успешно добавлен");
         } catch (Exception exception) {
@@ -105,9 +104,11 @@ public class PersonCollection extends DataManager implements Serializable {
 
         }
         return info.toString();
-        //return "Коллекция выведена";
     }
 
+    /**
+     * @return information about tree set
+     */
     public CommandResult show(Request<?> request) {
         return new CommandResult(true, information());
     }
@@ -115,7 +116,7 @@ public class PersonCollection extends DataManager implements Serializable {
     /**
      * method which compares the characters' height
      *
-     * @param
+     * @param height_int - height which client entered
      * @return true or false
      */
     public boolean toHeight(int height_int) {
@@ -130,17 +131,25 @@ public class PersonCollection extends DataManager implements Serializable {
         return flag;
     }
 
+    /**
+     * add person to tree set
+     *
+     * @param request - person which client create
+     */
     public CommandResult addIfMax(Request<?> request) {
         Person person = (Person) request.type;
         addPerson(person);
-        //person.setHeight(height_int);
         return new CommandResult(true, "Новый элемент успешно добавлен");
     }
 
+    /**
+     * add person to tree set
+     *
+     * @param request - person which client create
+     */
     public CommandResult addIfMin(Request<?> request) {
         Person person = (Person) request.type;
         addPerson(person);
-        //person.setHeight(height_int);
         return new CommandResult(true, "Новый элемент успешно добавлен");
     }
 
@@ -154,8 +163,10 @@ public class PersonCollection extends DataManager implements Serializable {
     }
 
     /**
+     * check id
+     *
      * @param ID could be int
-     * @return
+     * @return true or false
      */
     public boolean existID(int ID) {
         for (Person person : treeSet) {
@@ -166,7 +177,11 @@ public class PersonCollection extends DataManager implements Serializable {
         return false;
     }
 
-
+    /**
+     * check if the character exists, and if so, remove it from the tree set
+     *
+     * @param request - id which client entered
+     */
     public CommandResult remove_by_id(Request<?> request) {
         String message = null;
         int ID;
@@ -185,8 +200,6 @@ public class PersonCollection extends DataManager implements Serializable {
 
     /**
      * removes the highest person
-     *
-     * @param
      */
     public CommandResult removeGreater(Request<?> request) {
         String message = null;
@@ -206,8 +219,6 @@ public class PersonCollection extends DataManager implements Serializable {
 
     /**
      * filter of persons whose coordinate is greater
-     *
-     * @param
      */
     public CommandResult filterGreater(Request<?> request) {
         try {
@@ -237,13 +248,13 @@ public class PersonCollection extends DataManager implements Serializable {
             } else {
                 uniq.remove(X);
             }
-            System.out.println("Выведены все уникальные значения");
         }
+        System.out.println("Выведены все уникальные значения");
         return new CommandResult(true, String.valueOf(uniq));
     }
 
     /**
-     * print info about collection
+     * print info about collection : name, creation date, count of persons
      */
     public CommandResult info(Request<?> request) {
         String inf = treeSet.getClass().getName() + " " + PersonCollection.creationDate + " " + treeSet.size();
@@ -263,7 +274,7 @@ public class PersonCollection extends DataManager implements Serializable {
     /**
      * set collection
      *
-     * @param treeSet
+     * @param treeSet - our person collection
      */
     public void setCollection(TreeSet<Person> treeSet) {
 
@@ -280,7 +291,10 @@ public class PersonCollection extends DataManager implements Serializable {
         this.treeSet = treeSet;
     }
 
-
+    /**
+     * change the parameters of the character with the id entered by the client,
+     * check if such a character exists
+     */
     public CommandResult update(Request<?> request) {
         String message = null;
         try {
@@ -298,6 +312,12 @@ public class PersonCollection extends DataManager implements Serializable {
         return new CommandResult(true, message);
     }
 
+    /**
+     * method for update find the character with the entered id
+     *
+     * @param id - id that the client entered
+     * @return person
+     */
     public Person getById(Integer id) {
         return treeSet.stream()
                 .filter(person -> person.getId() == id)
@@ -305,48 +325,54 @@ public class PersonCollection extends DataManager implements Serializable {
                 .orElse(null);
     }
 
-    public boolean countGreater2(int eyeColor_int) {
-
-        boolean flag = false;
-
-        for (Color ourColor : Color.values()) {
-            if (ourColor.getCode() == eyeColor_int) {
-                flag = true;
-            }
-        }
-        return flag;
-    }
 
     /**
      * counter of persons whose color code is greater
-     *
-     * @param
+     * check for color correctness and display a message to the server and the user
      */
     public CommandResult countEyeColor(Request<?> request) {
-        int count = 0;
-        Integer code = Integer.parseInt((String) request.type);
-        for (Person person : treeSet) {
-            if (person.getEyeColor().getCode() > code) {
-                count += 1;
+        try {
+            int count = 0;
+            Integer code = Integer.parseInt((String) request.type);
+            for (Person person : treeSet) {
+                if (person.getEyeColor().getCode() > code) {
+                    count += 1;
+                }
             }
+            String countColor = String.valueOf(count);
+            return new CommandResult(true, countColor);
+        } catch (NumberFormatException e) {
+            System.out.println("Цвет введен неверно");
+            return new CommandResult(false, "Цвет введен неверно");
         }
-        String countColor = String.valueOf(count);
-        return new CommandResult(true, countColor);
     }
 
+    /**
+     * Save collection
+     */
     public void save(String filename) {
         saveCollection(filename);
     }
 
+    /**
+     * Parsing a collection in xml
+     *
+     * @param filename - the name of the file in which we save the collection, "s" by default
+     */
     public void saveCollection(String filename) {
         parser.convertToXML(this, filename);
         System.out.println("Коллекция сохранена");
     }
 
-    public CommandResult exit(Request<?> request){
+    /**
+     * Finish the app
+     *
+     * @param request - command
+     */
+    public CommandResult exit(Request<?> request) {
         AtomicBoolean atomicBoolean = new AtomicBoolean(false);
         atomicBoolean.set(true);
-        return new CommandResult(true,"Удачи");
+        return new CommandResult(true, "Удачи");
     }
 }
 

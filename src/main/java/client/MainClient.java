@@ -17,6 +17,11 @@ import static server.Parser.convertToJavaObject;
 public class MainClient {
     private static int port = Configuration.PORT;
 
+    /**
+     * Start client, send collection and commands to server
+     *
+     * @param args - port and file with collection
+     */
     public static void main(String[] args) throws IOException, JAXBException, ClassNotFoundException {
         if (args.length == 2) {
             try {
@@ -33,11 +38,17 @@ public class MainClient {
         PersonCollection collection = new PersonCollection();
 
         if (args.length == 2) {
-            collection.setCollection(convertToJavaObject(new File(args[1])).getCollection());
-            Request<PersonCollection> request = new Request<>(null, collection, collection);
-            PersonCollection result = requestManager.sendCollection(request);
-            result.getCollection();
-            collection.setCollection(result.getCollection());
+            File file = new File(args[1]);
+            if (file.exists() && !file.isDirectory()) {
+                collection.setCollection(convertToJavaObject(file).getCollection());
+                Request<PersonCollection> request = new Request<>(null, collection, collection);
+                PersonCollection result = requestManager.sendCollection(request);
+                result.getCollection();
+                collection.setCollection(result.getCollection());
+            } else {
+                Console console = new Console();
+                console.fileRead();
+            }
         }
         String input;
         do {
@@ -48,7 +59,6 @@ public class MainClient {
                 commandManager.existCommand(input);
             } catch (Exception e) {
                 System.out.println("Ошибка");
-                e.printStackTrace();
             }
         } while (!input.equals("exit"));
     }

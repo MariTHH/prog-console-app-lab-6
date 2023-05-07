@@ -6,9 +6,7 @@ import client.commands.Command;
 import common.data.Person;
 import common.network.CommandResult;
 import common.network.Request;
-import server.PersonCollection;
 
-import javax.xml.bind.JAXBException;
 import java.util.Scanner;
 
 
@@ -24,7 +22,7 @@ public class AddIfMax extends Command {
     /**
      * add a new element to a collection if its value exceeds the value of the largest element of that collection
      *
-     * @param args
+     * @param args - height
      */
     @Override
     public void execute(String[] args) {
@@ -34,11 +32,7 @@ public class AddIfMax extends Command {
             if (args.length > 2) {
                 System.out.println("Вы неправильно ввели команду");
             } else {
-                if (ExecuteScript.getFlag()) {
-                    height = Integer.parseInt(args[1]);
-                } else {
-                    height = Integer.parseInt(args[1]);
-                }
+                height = Integer.parseInt(args[1]);
                 Request<Integer> request = new Request<>(null, height, null);
                 CommandResult result = requestManager.sendRequest(request);
                 if (result.status) {
@@ -48,6 +42,8 @@ public class AddIfMax extends Command {
                     } else {
                         newPerson = ClientManager.getNewPerson(new Scanner(System.in));
                     }
+                    assert newPerson != null;
+                    newPerson.setHeight(height);
                     Request<Person> request1 = new Request<>(getName(), newPerson, null);
                     CommandResult result1 = requestManager.sendRequest(request1);
 

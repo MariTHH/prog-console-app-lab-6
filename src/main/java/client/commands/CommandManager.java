@@ -16,13 +16,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class CommandManager {
     private PersonCollection personCollection;
     private static boolean isWorking = true;
-    private static HashMap<String, Command> commandMap = new HashMap<String,Command>();
+    private static HashMap<String, Command> commandMap = new HashMap<String, Command>();
     private static String filelink;
 
     /**
      * creates a commandMap with commands
-     *
-     * @param
      */
     public CommandManager(RequestManager requestManager) {
         commandMap = new HashMap<>();
@@ -41,13 +39,6 @@ public class CommandManager {
         initializeCommand(new RemoveGreater(requestManager));
         initializeCommand(new Update(requestManager));
         initializeCommand(new ExecuteScript(personCollection));
-        /**
-        initializeCommand(new Save(requestManager,personCollection));
-        initializeCommand(new ExecuteScript(requestManager,personCollection));*/
-    }
-
-    public PersonCollection getPersonCollection() {
-        return this.personCollection;
     }
 
     /**
@@ -56,10 +47,8 @@ public class CommandManager {
     public static void existCommand(String input) {
         String[] args = input.trim().split(" ");
         try {
-            //String command = sc.nextLine().trim();
             String command = args[0];
 
-            String[] commandArg = args;
             String argument;
 
             if (args.length == 1)
@@ -75,40 +64,29 @@ public class CommandManager {
                 commandMap.get(command).setArgument(argument);
                 commandMap.get(command).execute(args);
             } else {
-                System.out.println("Команды " + commandArg[0] + " не существует");
+                System.out.println("Команды " + args[0] + " не существует");
             }
         } catch (NoSuchElementException e) {
             System.out.println("Команда введена неверно");
             isWorking = false;
-            //System.exit(0);
-            AtomicBoolean atomicBoolean = new AtomicBoolean(false);
-            atomicBoolean.set(true);
-        } catch (JAXBException | IOException e) {
-            System.out.println("Файл не найден");
+            AtomicBoolean exit = new AtomicBoolean(false);
+            exit.set(true);
         }
 
     }
 
 
-
-    public static boolean getWork() {
-        return isWorking;
-    }
-
     public static HashMap<String, Command> getCommandMap() {
         return commandMap;
     }
 
-    public String getFilelink() {
-        return filelink;
-    }
-
-    public void setFilelink(String filelink) {
-        this.filelink = filelink;
-    }
-
-    void initializeCommand(Command command){
-        if(commandMap.containsKey(command.getName())){
+    /**
+     * get command to map
+     *
+     * @param command - command from client
+     */
+    void initializeCommand(Command command) {
+        if (commandMap.containsKey(command.getName())) {
             throw new IllegalArgumentException("Данная команда уже есть");
         }
         commandMap.put(command.getName(), command);

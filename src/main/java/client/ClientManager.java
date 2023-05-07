@@ -11,7 +11,7 @@ public class ClientManager {
     /**
      * creates a person whose data is recorded in the console
      *
-     * @param sc
+     * @param sc - scanner
      * @return new Person
      */
     public static Person getNewPerson(Scanner sc) {
@@ -31,16 +31,26 @@ public class ClientManager {
     /**
      * creates a person whose data is recorded in the script
      *
-     * @param data
+     * @param data - characteristics of person from the script
      * @return
      */
     public static Person createPersonFromScript(ArrayList<String> data) {
         try {
-            if ((!data.get(0).equals("")) && (Long.parseLong(data.get(1)) > 0) && Integer.parseInt(data.get(2)) > 0 && (Double.parseDouble(data.get(3)) != 0 &&
-                    (Float.parseFloat(data.get(4)) > 0 && (!data.get(5).equals("") && data.get(5).length()<=944 ))&&(Integer.parseInt(data.get(6))>0) && (ReadManager.doesThisColorTypeExist(data.get(7))) &&
-                    (ReadManager.doesThisColorTypeExist(data.get(8))) && (ReadManager.doesThisCountryTypeExist(data.get(9))))) {
-                return new Person(data.get(0), new Coordinates(Long.parseLong(data.get(1)), Integer.parseInt(data.get(2))),Integer.parseInt(data.get(6)),Enum.valueOf(Color.class, data.get(7)),Enum.valueOf(Color.class,data.get(8)),Enum.valueOf(Country.class, data.get(9)),
-                        new Location(Double.parseDouble(data.get(3)),Float.parseFloat(data.get(4)), data.get(5)));
+            if ((!data.get(0).equals("")) &&
+                    (Long.parseLong(data.get(1)) > 0) &&
+                    Integer.parseInt(data.get(2)) > 0 &&
+                    Double.parseDouble(data.get(3)) != 0 &&
+                    (Float.parseFloat(data.get(4)) > 0 && (!data.get(5).equals("") && data.get(5).length() <= 944)) &&
+                    (Integer.parseInt(data.get(6)) > 0) &&
+                    (ReadManager.doesThisColorTypeExist(data.get(7))) &&
+                    (ReadManager.doesThisColorTypeExist(data.get(8))) &&
+                    (ReadManager.doesThisCountryTypeExist(data.get(9)))) {
+                return new Person(data.get(0),
+                        new Coordinates(Long.parseLong(data.get(1)), Integer.parseInt(data.get(2))), Integer.parseInt(data.get(6)),
+                        Enum.valueOf(Color.class, data.get(7)),
+                        Enum.valueOf(Color.class, data.get(8)),
+                        Enum.valueOf(Country.class, data.get(9)),
+                        new Location(Double.parseDouble(data.get(3)), Float.parseFloat(data.get(4)), data.get(5)));
 
             } else {
                 System.out.println("Неправильно введены данные");

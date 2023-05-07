@@ -6,9 +6,7 @@ import client.commands.Command;
 import common.data.Person;
 import common.network.CommandResult;
 import common.network.Request;
-import server.PersonCollection;
 
-import javax.xml.bind.JAXBException;
 import java.util.Scanner;
 
 /**
@@ -19,9 +17,13 @@ public class Update extends Command {
         super(requestManager);
     }
 
-
+    /**
+     * We ask for the id if the command is in the script, if not we take the argument
+     * Send a request with the id, checking if it exists
+     * then send a request with the command if the id is okay
+     */
     @Override
-    public void execute(String[] args) throws JAXBException {
+    public void execute(String[] args) {
         int id = 0;
         Person person1;
         if (args.length > 2) {
@@ -40,7 +42,7 @@ public class Update extends Command {
                 if (!ExecuteScript.getFlag()) {
                     person1 = ClientManager.getNewPerson(new Scanner(System.in));
                     person1.setId(id);
-                } else{
+                } else {
                     person1 = ClientManager.createPersonFromScript(ExecuteScript.getPersonList());
                     person1.setId(id);
                 }

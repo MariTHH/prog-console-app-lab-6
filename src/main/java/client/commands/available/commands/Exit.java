@@ -14,6 +14,10 @@ public class Exit extends Command {
     public Exit(RequestManager requestManager) {
         super(requestManager);
     }
+
+    /**
+     * send exit to server
+     */
     @Override
     public void execute(String[] args) {
         if (args.length > 1) {

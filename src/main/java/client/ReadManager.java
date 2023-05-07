@@ -124,7 +124,7 @@ public class ReadManager {
             } else if (!location.matches("^[a-zA-Z-А-Яа-я]*$")) {
                 System.out.println("Имя не может быть иными знаками кроме букв");
                 location = sc.nextLine().trim();
-            } else{
+            } else {
                 return location;
             }
 

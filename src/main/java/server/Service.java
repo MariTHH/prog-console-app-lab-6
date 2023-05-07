@@ -44,12 +44,14 @@ public class Service {
 
     /**
      * check if there is a command on the server and execute it
+     * If we pass a collection, we save it
+     * if the command is null and the collection is not passed,
+     * then check the parameters for the commands update add_if_max add_if_min
      *
      * @param request request - command from client
      */
     public CommandResult executeCommand(Request<?> request) throws JAXBException {
         if (!commands.containsKey(request.command) && request.command != null)
-            //request.personCollection.getCollection().size()!=0
             return new CommandResult(false, "Такой команды на сервере нет.");
         else if (request.command == null && request.personCollection != null) {
             collection.loadCollection(request.personCollection.getCollection());

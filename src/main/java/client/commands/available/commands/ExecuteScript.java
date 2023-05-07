@@ -9,6 +9,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -34,11 +35,10 @@ public class ExecuteScript extends Command {
      * reads the file lines by adding the commands to the array
      * if the "add" command, creates an array with the persons characteristics
      *
-     * @param args
-     * args -  command arguments
+     * @param args args -  command arguments
      */
     @Override
-    public void execute(String[] args) throws JAXBException, IOException {
+    public void execute(String[] args) {
         if (args.length != 2) {
             System.out.println("Вы неправильно ввели команду");
         } else {
@@ -62,6 +62,7 @@ public class ExecuteScript extends Command {
 
                 String[] commandAndArgument = commandList.get(i).split(" ");
                 String argument;
+                String commandArg = commandAndArgument[0];
 
                 if (commandAndArgument.length == 1)
                     argument = null;
@@ -71,23 +72,24 @@ public class ExecuteScript extends Command {
                     System.out.println("Введите комманду и аргумент, если нужно");
                     return;
                 }
-                boolean a = !commandAndArgument[0].equals("add") && !commandAndArgument[0].equals("add_if_min") && !commandAndArgument[0].equals("add_if_max") && !commandAndArgument[0].equals("update");
+                String[] arrayList = new String[]{"add", "add_if_min", "add_if_max", "update"};
+                boolean specialCommand = Arrays.asList(arrayList).contains(commandArg);
                 try {
-                    if (commandMap.containsKey(commandAndArgument[0]) && a) {
-                        if (commandAndArgument[0].equals("execute_script")) {
+                    if (commandMap.containsKey(commandArg) && !specialCommand) {
+                        if (commandArg.equals("execute_script")) {
                             if (filePaths.contains(commandAndArgument[1])) {
                                 System.out.println("Файл содержит рекурсию!!");
                                 continue;
                             }
                         }
-                        commandMap.get(commandAndArgument[0]).setArgument(argument);
-                        commandMap.get(commandAndArgument[0]).execute(commandAndArgument);
+                        commandMap.get(commandArg).setArgument(argument);
+                        commandMap.get(commandArg).execute(commandAndArgument);
 
-                    } else if (!a) {
+                    } else if (specialCommand) {
                         for (int j = 1; j < 11; j++) {
                             personList.add(commandList.get(i + j));
                         }
-                        commandMap.get(commandAndArgument[0]).execute(commandAndArgument);
+                        commandMap.get(commandArg).execute(commandAndArgument);
                         personList.clear();
                         i += 10;
                     }
@@ -107,6 +109,7 @@ public class ExecuteScript extends Command {
     public static ArrayList<String> getPersonList() {
         return personList;
     }
+
     @Override
     public String getName() {
         return "execute_script";

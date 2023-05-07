@@ -27,7 +27,7 @@ public class AddIfMin extends Command {
     /**
      * dd a new element to the collection if its value is less than the smallest element of that collection
      *
-     * @param args
+     * @param args - height
      */
     @Override
     public void execute(String[] args) {
@@ -37,14 +37,10 @@ public class AddIfMin extends Command {
             if (args.length > 2) {
                 System.out.println("Вы неправильно ввели команду");
             } else {
-                if (ExecuteScript.getFlag()) {
-                    height = Integer.parseInt(args[1]);
-                } else {
-                    height = Integer.parseInt(args[1]);
-                }
+                height = Integer.parseInt(args[1]);
                 Request<Integer> request = new Request<>(null, height, null);
                 CommandResult result = requestManager.sendRequest(request);
-                if (result.status) {
+                if (!result.status) {
                     if (ExecuteScript.getFlag()) {
                         ExecuteScript.getPersonList().set(6, args[1]);
                         newPerson = ClientManager.createPersonFromScript(ExecuteScript.getPersonList());

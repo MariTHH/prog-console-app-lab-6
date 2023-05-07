@@ -2,12 +2,9 @@ package client.commands.available.commands;
 
 import client.RequestManager;
 import client.commands.Command;
-import common.data.Person;
 import common.network.CommandResult;
 import common.network.Request;
-import server.PersonCollection;
 
-import javax.xml.bind.JAXBException;
 
 /**
  * print_unique_location : print the unique values of the location field of all items in the collection
@@ -18,8 +15,11 @@ public class PrintUniqueLocation extends Command {
         super(requestManager);
     }
 
+    /**
+     * send command to server
+     */
     @Override
-    public void execute(String[] args) throws JAXBException {
+    public void execute(String[] args) {
         if (args.length != 1) {
             System.out.println("Вы неправильно ввели команду");
         } else {
@@ -31,6 +31,7 @@ public class PrintUniqueLocation extends Command {
                 System.out.println("Ошибка");
         }
     }
+
     @Override
     public String getName() {
         return "print_unique_location";
