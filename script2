@@ -1,7 +1,6 @@
-count_greater_than_eye_color RED
-print_unique_location
+count_greater_than_eye_color 1
 update
-nooo
+kris
 25
 23
 85
@@ -9,5 +8,5 @@ nooo
 itmo
 170
 RED
-GREEN
-CHINA
+RED
+USA

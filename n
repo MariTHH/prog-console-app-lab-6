@@ -16,36 +16,4 @@
             <name>africa</name>
         </location>
     </treeSet>
-    <treeSet>
-        <name>vasya</name>
-        <coordinates>
-            <x>97</x>
-            <y>45</y>
-        </coordinates>
-        <height>190</height>
-        <eyeColor>RED</eyeColor>
-        <hairColor>BLUE</hairColor>
-        <nationality>ITALY</nationality>
-        <location>
-            <x>67.0</x>
-            <y>2.0</y>
-            <name>africa</name>
-        </location>
-    </treeSet>
-    <treeSet>
-        <name>yra</name>
-        <coordinates>
-            <x>3</x>
-            <y>5</y>
-        </coordinates>
-        <height>999</height>
-        <eyeColor>BLACK</eyeColor>
-        <hairColor>BLACK</hairColor>
-        <nationality>CHINA</nationality>
-        <location>
-            <x>4.0</x>
-            <y>5.0</y>
-            <name>hdgf</name>
-        </location>
-    </treeSet>
 </persons>

@@ -1,4 +1,4 @@
-add_if_min 53
+add_if_min 100
 katya
 223
 54
@@ -9,4 +9,3 @@ home
 RED
 WHITE
 USA
-remove_by_id

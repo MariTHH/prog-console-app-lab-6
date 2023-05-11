@@ -1,36 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <persons>
-    <parser/>
     <treeSet>
-        <name>a</name>
+        <name>liza</name>
         <coordinates>
-            <x>3</x>
-            <y>3</y>
+            <x>25</x>
+            <y>23</y>
         </coordinates>
-        <height>3</height>
-        <eyeColor>BLACK</eyeColor>
-        <hairColor>BLACK</hairColor>
-        <nationality>CHINA</nationality>
+        <height>170</height>
+        <eyeColor>RED</eyeColor>
+        <hairColor>RED</hairColor>
+        <nationality>USA</nationality>
         <location>
-            <x>3.0</x>
-            <y>3.0</y>
-            <name>a</name>
+            <x>85.0</x>
+            <y>28.0</y>
+            <name>itmo</name>
         </location>
     </treeSet>
     <treeSet>
-        <name>artem</name>
+        <name>kris</name>
         <coordinates>
-            <x>2</x>
-            <y>25</y>
+            <x>25</x>
+            <y>23</y>
         </coordinates>
-        <height>56</height>
-        <eyeColor>BLUE</eyeColor>
-        <hairColor>GREEN</hairColor>
+        <height>170</height>
+        <eyeColor>RED</eyeColor>
+        <hairColor>RED</hairColor>
         <nationality>USA</nationality>
         <location>
-            <x>2.0</x>
-            <y>3.0</y>
-            <name>africa</name>
+            <x>85.0</x>
+            <y>28.0</y>
+            <name>itmo</name>
         </location>
     </treeSet>
 </persons>

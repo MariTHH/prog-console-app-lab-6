@@ -1,16 +1,7 @@
 info
-add
-vasya
-97
-45
-67
-2
-africa
-190
-RED
-BLUE
-ITALY
-save n
+print_unique_location
+filter_greater_than_location 1
+
 
 
 
